@@ -88,9 +88,12 @@ public class FindConversation {
 		}
 		
 		else {
+			
 			ResultsWriter.write(ensemble, trace, sauv);
 			sauv.nbconv+=1;
-			
+			if (fini) {
+				threadpool.threadpool.shutdown();
+			}
 		}
 		return ;
 	
@@ -107,7 +110,7 @@ public class FindConversation {
 	public static void checkTresholdAndSubmitNewCreatedTask(ConversationSet ensemble, int ligne , Boolean fini, Trace trace, ThreadExecutor threadpool, Regex regex,sauvegarde sauv) {
 		if (TraceCondition.treshold(ensemble, ligne)) {
 			try {
-				Task tache = new Task("i",ensemble,ligne+1,false,trace, threadpool , regex, sauv);
+				Task tache = new Task("i",ensemble,ligne+1,fini,trace, threadpool , regex, sauv);
 				threadpool.SubmitTask(tache);
 			}
 			catch(Exception e){

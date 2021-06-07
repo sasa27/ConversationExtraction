@@ -17,11 +17,13 @@ public class Main {
 	public static String output;
 	static boolean timerMode;
 	public static String mode;
+	public static boolean premier;
 	
 
 	public static void main(String[] args) {
 		boolean reg = true;
 		if (Arrays.stream(args).anyMatch("-r"::equals)) {
+			
 			try {
 				FullOptions.setOptions(args);
 			} catch (Exception e) {
@@ -30,7 +32,6 @@ public class Main {
 			}
 		}
 		else {
-			
 			try {
 				FullOptions.setOptionsNoRegex(args);
 				reg=false;
@@ -43,17 +44,20 @@ public class Main {
 		
 		createDir();
 		String tmp = output ;
-
-
+		boolean prem=false;
+		if (Arrays.stream(args).anyMatch("-f"::equals)) {
+			prem=true;
+			System.out.println("match");
+		}
 		//Split the log and detect the sessions and  dependencies
 		sauvegarde compt=new sauvegarde(new File(tmp));
 		if(reg){
 			String[] argsSplit = {"-i", log, "-r", regex, "-o", tmp, mode};
-			split.MainSplit.main(argsSplit, compt);
+			split.MainSplit.main(argsSplit, compt, prem);
 		}
 		else {
 			String[] argsSplit = {"-i", log, "-o", tmp, mode};
-			split.MainSplit.main(argsSplit, compt);
+			split.MainSplit.main(argsSplit, compt, prem);
 		}
 		final long timebuildingTraces1 = System.currentTimeMillis();
 		//coupeurfichiertest.coupeurfichier(new File(log));

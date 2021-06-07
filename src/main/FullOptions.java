@@ -12,7 +12,9 @@ import org.apache.commons.cli.Options;
 public class FullOptions {
 	
 	public static void setOptions(String[] args) throws Exception {
+		System.out.println("pb la");
 		final Options options = configParameters();
+		
 	    final CommandLineParser parser = new DefaultParser();
 	    try {
 		    final CommandLine line = parser.parse(options, args);
@@ -28,7 +30,7 @@ public class FullOptions {
 		    else {
 		    	Main.mode = ""; 
 		    }
-		    	
+		   
 
 		    
 		    
@@ -37,7 +39,11 @@ public class FullOptions {
 		    if(timerMode) {
 		    	Main.timerMode = true;
 		    }
-
+		    
+		    boolean arretpremiermode = line.hasOption("premier");
+		    if(arretpremiermode) {
+		    	Main.premier = true;
+		    }
 	    
 	    }catch(Exception e) {
 	    	System.out.println("Usage : Main -i <input> -r <regex> -o <output>\n"
@@ -45,6 +51,7 @@ public class FullOptions {
 	    			+ "-r/-regex : regex file to use on the input file\n"
 	    			+ "-o/-output : name of the output directory\n"
 	    			+ "Options :\n"
+	    			+ "-f\fif you want to stop at the first result\n"
 	    			+ "-t\tshow the duration of each step of the program\n"
 	    			+ "-id\tuse session identifier to split the log\n"
 	    			);
@@ -77,7 +84,10 @@ public class FullOptions {
 		    	Main.timerMode = true;
 		    }
 
-	    
+		    boolean arretpremiermode = line.hasOption("premier");
+		    if(arretpremiermode) {
+		    	Main.premier = true;
+		    }
 	    }catch(Exception e) {
 	    	System.out.println("Usage : Main -i <input> -r <regex> -o <output>\n"
 	    			+ "-i/-input : log file to analyse\n"
@@ -115,6 +125,13 @@ public class FullOptions {
 	            .required(false) 
 	            .build();
 	    
+	    final Option arretpremier = Option.builder("f") 
+	            .longOpt("premier") 
+	            .desc("premier") 
+	            .hasArg(false) 
+	            .required(false) 
+	            .build();
+	    
 	    final Option outputOption = Option.builder("o")
 				.longOpt("output")
 				.desc("output file")
@@ -139,6 +156,7 @@ public class FullOptions {
 	    options.addOption(timerFileOption);
 	    options.addOption(outputOption);
 	    options.addOption(modeOption);
+	    options.addOption(arretpremier);
 	
 	    return options;
 	}
@@ -177,14 +195,21 @@ public class FullOptions {
 				.required(false)
 				.build();
 
-	
+	    final Option arretpremier = Option.builder("f") 
+	            .longOpt("premier") 
+	            .desc("premier") 
+	            .hasArg(false) 
+	            .required(false) 
+	            .build();
 	    final Options options = new Options();
 	
 	    options.addOption(logFileOption);
 	    options.addOption(timerFileOption);
 	    options.addOption(outputOption);
 	    options.addOption(modeOption);
+	    options.addOption(arretpremier);
 	
+	    
 	    return options;
 	}
 }
