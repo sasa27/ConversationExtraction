@@ -1,0 +1,194 @@
+Z3 windows pour un solver par exemple
+
+
+
+class parserFichier:
+(peut le couper avec les \n pour notre cas pour le fichier)
+méthode : 
+decoupefichier : lis le fichier donné en entrée et coupe afin de créer des events, return des strings (traités ici par event)
+decoupeEvent : lis un string et le coupe (ici ; pour les event)
+
+class qualitémétrique:
+getmeilleur : renvoie le meilleur ensemble de conversation
+
+méthode:
+calcul : renvoie le calcul d'une heuristique pour une trace donnée
+setter : lis et parse le fichier afin de ressortir des règles a utiliser pour le calcul de l'heuristique
+plusieurs pour l'heuristique et une qui fait la moyenne
+
+class event :
+représente un événement
+coupe une entrée obtenue de la classe parser via les ;
+liste de tuple <clé,valeur> :
+méthodes:
+getters,setters pour des valeurs particulières tels que le from to ou le time
+setEvent : prends en entrée un string obtenu par decoupeEvent et le traite afin d'en sortir la liste de tuple <clé,valeur> représentant
+paramètre et valeur
+getEvent : renvoie l'event
+/**
+    *class ensembleevent:
+    *représente l'ensemble des événements
+    *liste<String>
+    *méthodes:
+    *next : donne l'événement suivant celui donné en entrée
+    *setter : rajouter tous les éléments lu et parser par ler parseur dans la classe dans une liste <String>
+*/
+
+
+class trace:
+représente une trace
+id de la trace pour le thread pool : int        pas besoin
+qualite de la trace : float a t'on besoin de l'ancienne pour la nouvelle
+nombre de requete sans réponse ou réponse sans requête : 
+liste de clés restantes : list <String> pour contrainte sur clé
+ComposantPrincipal : Liste<event>
+EventNext : event obtenu par next de ensembleevent
+
+class ensembleconversation:
+répertorie l'ensemble des traces
+hashmap<heuristique,trace>
+peut ainsi retrouver chaque trace en fonction de son heuristique
+méthode:
+getensemble : renvoie l'ensemble des traces
+setter prenant en entrée la première trace et rajoutant les traces au fur et a mesure
+
+class FindConversation:
+Algorithme récursif
+prend en entrée une trace
+applique l'Algorithme
+recalcule la qualité de chacune des ensemble de conversation générées afin de les replacer dans le threadpool
+renvoie une trace
+
+class app:
+lance ensembleevent qui va lancer parser
+crée le threadpool et sa queue
+lance l'algorithme récursif et récupère les résultats afin de les rajouter dans la queue.
+les récupère lors de la création de la ou les nouvelles traces
+renvoie soit la première trace a 1 via l'heuristique soit la meilleure trace obtenue
+choisir qualité avec un booléen d'arrêt ou même pas d'arrêt
+
+class task:
+ensemble de conversation
+ieme élément où on est sur la séquence de départ (pour savoir où on en est dans le log)
+q la qualité pour le threadpool
+
+class conditionsurtrace:
+prend en entrée un fichier écrit en logique du premier ordre
+(rindphi ou tweetyproject via maven)
+lis et traduit le fichier
+ensembleconditiontrace=list<>
+méthode:
+isGood : prend en entrée une trace et indique si celle-ci respecte les conditions
+return un boolean
+
+class conditionsurcle:
+prend en entrée un fichier écrit en logique du premier ordre
+(rindphi ou tweetyproject via maven)
+lis et traduit le fichier
+ensembleconditioncle=list<>
+méthode:
+isGood : prend en entrée une trace et indique si les clés de celle-ci respecte les conditions
+return un boolean
+
+class scheduler:
+représente un scheduler pour le threadpool
+renvoie un scheduler
+
+algo prend un ensemble de conv, conv first
+
+on parle de conversation car trace corrélée
+conversation peut être une trace
+on a pas de modèle donc c'est pas des traces.
+on va pas mettre les qualités dans des fichiers
+métrique peut etre soit (0 ou 1) ou entre[0,1] plus grand que t
+faire celui-là
+
+
+toujours la première quand même.
+
+
+2eme possibilité ou le calcul se fait en largeur ( la même chose sauf pour la partie algorithme )
+
+
+class parserFichier:
+(peut le couper avec les \n pour notre cas pour le fichier)
+méthode : 
+decoupefichier : lis le fichier donné en entrée et coupe afin de créer des events, return des strings (traités ici par event)
+decoupeEvent : lis un string et le coupe (ici ; pour les event)
+
+class heuristique:
+prends en entrée un fichier
+méthode:
+calcul : renvoie le calcul d'une heuristique pour une trace donnée
+setter : lis et parse le fichier afin de ressortir des règles a utiliser pour le calcul de l'heuristique
+
+class event :
+représente un événement
+coupe une entrée obtenue de la classe parser via les ;
+liste de tuple <clé,valeur> obtenu grâce a un découpage via le :
+méthodes:
+getters,setters pour des valeurs particulières tels que le from to ou le time
+setEvent : prends en entrée un string obtenu par decoupeEvent et le traite afin d'en sortir la liste de tuple <clé,valeur> représentant
+paramètre et valeur
+getEvent : renvoie l'event
+
+class ensembleevent:
+représente l'ensemble des événements
+liste<String>
+méthodes:
+next : donne l'événement suivant celui donné en entrée
+setter : rajouter tous les éléments lu et parser par ler parseur dans la classe dans une liste <String>
+
+class trace:
+représente une trace
+id de la trace pour le thread pool : int
+qualite de la trace : float 
+liste de clés restantes : list <String>
+ComposantPrincipal : hashmap <cle,List<String>>
+EventNext : event obtenu par next de ensembleevent
+
+class ensembletrace:
+répertorie l'ensemble des traces
+hashmap<heuristique,trace>
+peut ainsi retrouver chaque trace en fonction de son heuristique
+méthode:
+getmeilleur : renvoie la meilleure trace
+getensemble : renvoie l'ensemble des traces
+setter prenant en entrée la première trace et rajoutant les traces au fur et a mesure
+
+class récursif:
+Algorithme récursif
+prend en entrée une trace
+applique l'Algorithme
+renvoie des trace
+on doit attendre que chaque calcul de la rangée soit terminé pour passer au prochain événements nécessitant de recalculer les 
+qualités de toute les traces avant de les donner a un executor vide qui s'occupera de les mettre dans l'ordre a traiter via la qualité
+
+class app:
+lance ensembleevent qui va lancer parser
+crée le threadpool et sa queue
+lance l'algorithme récursif et récupère les résultats afin de les rajouter dans la queue.
+les récupère lors de la création de la ou les nouvelles traces
+renvoie soit la première trace a 1 via l'heuristique soit la meilleure trace obtenue
+
+class conditionsurtrace:
+prend en entrée un fichier écrit en logique du premier ordre
+(rindphi ou tweetyproject via maven)
+lis et traduit le fichier
+méthode:
+ensembleconditiontrace=list<>
+isGood : prend en entrée une trace et indique si celle-ci respecte les conditions
+return un boolean
+
+class conditionsurcle:
+prend en entrée un fichier écrit en logique du premier ordre
+(rindphi ou tweetyproject via maven)
+lis et traduit le fichier
+ensembleconditioncle=list<>
+méthode:
+isGood : prend en entrée une trace et indique si les clés de celle-ci respecte les conditions
+return un boolean
+
+class scheduler:
+représente un scheduler pour le threadpool
+renvoie un scheduler
