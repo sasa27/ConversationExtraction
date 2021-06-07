@@ -1,0 +1,20 @@
+Aug 19, 2019 13:38:36.075213000 CEST;Host=192.168.43.101;Dest=192.168.43.76;Protocol=HTTP;Verb=GET Uri=/json.htm?type=command&param=switchlight&idx=2&switchcmd=On&rssi=10 HTTP/1.1 ;;session=86
+Aug 19, 2019 13:38:36.085213000 Host=192.168.43.76;Dest=192.168.43.76;type=savedata&switchcmd=On;session=86
+Aug 19, 2019 13:38:36.109835000 CEST;Host=192.168.43.76;Dest=192.168.43.101;Protocol=HTTP;HTTP/1.1 status=200 response=OK  (type=application/json);;session=86
+Aug 19, 2019 13:38:36.220766000 CEST;Host=192.168.43.101;Dest=192.168.43.76;Protocol=HTTP;Verb=GET Uri=/json.htm?type=command&param=switchlight&idx=2&switchcmd=Off&rssi=10 HTTP/1.1 ;;session=87
+Aug 19, 2019 13:38:36.230766000 Host=192.168.43.76;Dest=192.168.43.76;type=savedata&switchcmd=Off;session=87
+Aug 19, 2019 13:38:36.258360000 CEST;Host=192.168.43.76;Dest=192.168.43.101;Protocol=HTTP;HTTP/1.1 status=200 response=OK  (type=application/json);;session=87
+Aug 19, 2019 13:38:37.714379000 CEST;Host=192.168.43.76;Dest=192.168.43.203;Protocol=UDP;63161 -> 5987 Len=22;80000000113b00003a00310000080402000000&group=02&switchcmd=Off;session=88
+Aug 19, 2019 13:38:37.754065000 CEST;Host=192.168.43.203;Dest=192.168.43.76;Protocol=UDP;5987 -> 63161 Len=8;88000000&status=0300&3a&response=00;session=88
+Aug 19, 2019 13:38:38.031166000 CEST;Host=192.168.43.102;Dest=192.168.43.76;Protocol=HTTP;Verb=GET Uri=/json.htm?type=command&param=switchlight&idx=10&switchcmd=Off&rssi=9 HTTP/1.1 ;;session=89
+Aug 19, 2019 13:38:38.041166000 Host=192.168.43.76;Dest=192.168.43.76;type=savedata&switchcmd=Off;session=89
+Aug 19, 2019 13:38:38.063994000 CEST;Host=192.168.43.76;Dest=192.168.43.102;Protocol=HTTP;HTTP/1.1 status=200 response=OK  (type=application/json);;session=89
+Aug 19, 2019 13:38:38.447484000 CEST;Host=192.168.43.76;Dest=192.168.43.202;Protocol=UDP;63161 -> 5987 Len=22;80000000113b00003b00310000080401000000&group=01&switchcmd=On;session=90
+Aug 19, 2019 13:38:38.481683000 CEST;Host=192.168.43.202;Dest=192.168.43.76;Protocol=UDP;5987 -> 63161 Len=8;88000000&status=0300&3b&response=00;session=90
+Aug 19, 2019 13:38:43.283783000 CEST;Host=192.168.43.76;Dest=192.168.43.202;Protocol=UDP;63161 -> 5987 Len=22;80000000113b00003c00310000080402000000&group=01&switchcmd=Off;session=91
+Aug 19, 2019 13:38:43.347301000 CEST;Host=192.168.43.202;Dest=192.168.43.76;Protocol=UDP;5987 -> 63161 Len=8;88000000&status=0300&3c&response=00;session=91
+Aug 19, 2019 13:38:44.727202000 CEST;Host=192.168.43.101;Dest=192.168.43.76;Protocol=HTTP;Verb=GET Uri=/json.htm?type=command&param=switchlight&idx=2&switchcmd=On&rssi=6 HTTP/1.1 ;;session=92
+Aug 19, 2019 13:38:44.737202000 Host=192.168.43.76;Dest=192.168.43.76;type=savedata&switchcmd=On;session=92
+Aug 19, 2019 13:38:44.764407000 CEST;Host=192.168.43.76;Dest=192.168.43.101;Protocol=HTTP;HTTP/1.1 status=200 response=OK  (type=application/json);;session=92
+Aug 19, 2019 13:38:44.775352000 CEST;Host=192.168.43.76;Dest=192.168.43.203;Protocol=UDP;63161 -> 5987 Len=22;80000000113b00003d00310000080401000000&group=02&switchcmd=On;session=92
+Aug 19, 2019 13:38:44.809416000 CEST;Host=192.168.43.203;Dest=192.168.43.76;Protocol=UDP;5987 -> 63161 Len=8;88000000&status=0300&3d&response=00;session=92
