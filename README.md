@@ -4,7 +4,7 @@ Conversation (a.k.a. session) extraction from event log
 Parallel algorithm for recovering conversations (sequences of correlated events interchanged among different components that achieve a certain goal) from event logs.
 ## Contents
 * src/ contains the source code
-* examples/ contains the examples used for the publication
+* log/trace/ex[1,6]id/ contains 6 event log examples along with regex files
 * logentrainementlog/ contains other types of tests like one without regex or the divide and conquer tests
 * RESULTS/ where the results are gonne be
 
