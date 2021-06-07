@@ -27,7 +27,9 @@ Once compiled, you can run the method with the script **Extracteur.sh**:
   
   Models are generated in the **\<output\>** folder.
 
-Other options: 
+Other options:
+ 
+-f if you only want the first result
 
 It is an eclipse project, you can import it directly with eclipse if you want to modify the code.
 
