@@ -1,2 +1,0 @@
-json.htm(Host=192.168.43.102,Dest=192.168.43.76,Protocol=HTTP,Verb=GET,type=command,param=switchlight&idx=2,switchcmd=Off,rssi=7,session=1)
-OK(Host=192.168.43.76,Dest=192.168.43.102,Protocol=HTTP,status=200,type=application/json,session=1)
