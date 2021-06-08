@@ -44,22 +44,24 @@ public class Main {
 		
 		createDir();
 		String tmp = output ;
-		boolean prem=false;
+		boolean firstResult=false;
 		if (Arrays.stream(args).anyMatch("-f"::equals)) {
-			prem=true;
-			System.out.println("match");
+			firstResult=true;
 		}
 		//Split the log and detect the sessions and  dependencies
-		sauvegarde compt=new sauvegarde(new File(tmp));
+		Save count=new Save(new File(tmp));
 		if(reg){
 			String[] argsSplit = {"-i", log, "-r", regex, "-o", tmp, mode};
-			split.MainSplit.main(argsSplit, compt, prem);
+			split.MainSplit.main(argsSplit, count, firstResult);
 		}
 		else {
 			String[] argsSplit = {"-i", log, "-o", tmp, mode};
-			split.MainSplit.main(argsSplit, compt, prem);
+			split.MainSplit.main(argsSplit, count, firstResult);
 		}
 		final long timebuildingTraces1 = System.currentTimeMillis();
+		
+		
+		
 		//coupeurfichiertest.coupeurfichier(new File(log));
 		
 		

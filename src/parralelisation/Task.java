@@ -1,8 +1,8 @@
 package parralelisation;
 import split.Trace;
 import split.Regex;
-import main.sauvegarde;
-import metrique.MetriquePersonnel;
+import main.Save;
+import metrique.Metric;
 import objetsconversations.ConversationSet;
 public class Task implements Runnable{
     /**
@@ -13,18 +13,16 @@ public class Task implements Runnable{
      * le threadpool dans lequel celle-ci s'exécute
      */
 
-    public String name;
     public ConversationSet ensembleconv;
     public int ligne;
     public boolean bool;
     public Trace trace;
     public ThreadExecutor threadpool;
     public float priority;
-    public MetriquePersonnel metrique;
-    public sauvegarde sauv;
+    public Metric metrique;
+    public Save sauv;
     public Regex regex;
-    public Task(String name, ConversationSet ensembleconv, int ligne , boolean bool, Trace trace, ThreadExecutor threadpool,  Regex regex,sauvegarde sauv){
-        this.name = name; 
+    public Task(ConversationSet ensembleconv, int ligne , boolean bool, Trace trace, ThreadExecutor threadpool,  Regex regex,Save sauv){
         this.ensembleconv=ensembleconv;
         this.ligne=ligne;
         this.bool=bool;
@@ -35,9 +33,7 @@ public class Task implements Runnable{
         this.sauv=sauv;
     }
  
-    public String getName() {
-        return name;
-    }
+
     
     
     
@@ -60,7 +56,7 @@ public class Task implements Runnable{
     //obtient l'heuristique de la tâche
     public float getHeuristique(){
         ConversationSet ensemble=this.getensembleconv();
-        return MetriquePersonnel.GetMetriquePersonnel(ensemble);
+        return Metric.GetMetriquePersonnel(ensemble);
 
     }
    

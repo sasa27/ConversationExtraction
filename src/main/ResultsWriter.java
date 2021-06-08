@@ -18,35 +18,35 @@ import java.util.Collections;
 
 public class ResultsWriter {
 	
-	public static synchronized void write(ConversationSet ensemble, Trace trace, sauvegarde sauv) {
+	public static synchronized void write(ConversationSet ensemble, Trace trace, Save sauv) {
 		
 		
 		
 		
 		
-			File dir = new File(sauv.file+"/resultat"+sauv.nombre+"/trace"+trace.compteur+".txt");
+			File dir = new File(sauv.file+"/resultat"+sauv.number+"/trace"+trace.compteur+".txt");
 				trace.compteur+=1;
-				File dossier=new File(sauv.file+"/resultat"+sauv.nombre);
+				File dossier=new File(sauv.file+"/resultat"+sauv.number);
 				if ((!dossier.exists()) || (!dossier.isDirectory())){
 					dossier.mkdir();
 				}
 				
-			    String renvoi = "";
+			    String writingInFile = "";
 			    for (Conversation conv : ensemble.getConversationSet()) {
 			    	for (Event evenement : conv.getConv()) {
-			    		renvoi= renvoi  +evenement.getligne()+ "\n";
+			    		writingInFile= writingInFile  +evenement.getligne()+ "\n";
 			    	}
-			    	renvoi = renvoi + "\n \n";
-			    	renvoi = renvoi + conv.getClechoisi() + "\n" + "req : " + conv.getReq() + "         rep : " + conv.getRep() ;
-			    	renvoi = renvoi + "\n \n \n \n";
+			    	writingInFile = writingInFile + "\n \n";
+			    	writingInFile = writingInFile + conv.getChoosedKeys() + "\n" + "req : " + conv.getReq() + "         rep : " + conv.getRep() ;
+			    	writingInFile = writingInFile + "\n \n \n \n";
 			    }
 			    
-			    renvoi = renvoi + "\n \n \n \n";
-			    renvoi = renvoi + ensemble.getHeuristique(ensemble) + "\n";
+			    writingInFile = writingInFile + "\n \n \n \n";
+			    writingInFile = writingInFile + ensemble.getHeuristique(ensemble) + "\n";
 			    try {
 			    FileWriter fw = new FileWriter(dir.getAbsoluteFile());
 			    BufferedWriter bw = new BufferedWriter(fw);
-			    bw.write(renvoi);
+			    bw.write(writingInFile);
 			    bw.close();
 			  //  threadpool.threadpool.shutdownNow();
 			    }
@@ -59,7 +59,7 @@ public class ResultsWriter {
 	
 	
 	
-	public static synchronized void writeMoreThanOne(ConversationSet ensemble, Trace trace, sauvegarde sauv) {
+	public static synchronized void writeMoreThanOne(ConversationSet ensemble, Trace trace, Save sauv) {
 		
 		
 		
@@ -68,54 +68,54 @@ public class ResultsWriter {
 		
 	//if (ensemble.ConvSet.size()==1) {
 		trace.compteur+=1;
-		File dossier=new File(sauv.file+"/resultat"+sauv.nombre);
-		if ((!dossier.exists()) || (!dossier.isDirectory())){
-			dossier.mkdir();
+		File directory=new File(sauv.file+"/resultat"+sauv.number);
+		if ((!directory.exists()) || (!directory.isDirectory())){
+			directory.mkdir();
 		}
-		File dir = new File(sauv.file+"/resultat"+sauv.nombre+"/trace"+trace.compteur+".txt");
+		File dir = new File(sauv.file+"/resultat"+sauv.number+"/trace"+trace.compteur+".txt");
 	    
-	    String renvoi = "";
-	    ArrayList<String> etude = new ArrayList<String>();
+	    String writingInFile = "";
+	    ArrayList<String> keysAlone = new ArrayList<String>();
 	    Set<String> SetParam= new LinkedHashSet<>();
-	    ArrayList<ArrayList<String>> plusieurscles = new ArrayList<ArrayList<String>>();
+	    ArrayList<ArrayList<String>> arrayOfArrayOfKeys = new ArrayList<ArrayList<String>>();
 	    for (Conversation conv : ensemble.getConversationSet()) {
-	    	ArrayList<ArrayList<String>> arajout=conv.getClechoisi();
-	    	for (ArrayList<String> raj : arajout) {
-	    		String resultat = raj.toString();
-	    		resultat=resultat.replace("[", "").replace("]","").replace(" ", "");
-	    		String[] resultat2=resultat.split("=");
-	    		if (resultat2.length==2) {
-	    			String resultat4=resultat2[0];
-	    			etude.add(resultat4);
-		    		SetParam.add(resultat4);
+	    	ArrayList<ArrayList<String>> arajout=conv.getChoosedKeys();
+	    	for (ArrayList<String> key : arajout) {
+	    		String keyInString = key.toString();
+	    		keyInString=keyInString.replace("[", "").replace("]","").replace(" ", "");
+	    		String[] keySplited=keyInString.split("=");
+	    		if (keySplited.length==2) {
+	    			String keyAlone=keySplited[0];
+	    			keysAlone.add(keyAlone);
+		    		SetParam.add(keyAlone);
 	    		}
 	    		else {
-	    			ArrayList<String> rajoutplus = new ArrayList<String>();
-	    			for(int i=0;i<resultat2.length;i+=2) {
+	    			ArrayList<String> moreThanOneKey = new ArrayList<String>();
+	    			for(int i=0;i<keySplited.length;i+=2) {
 	    				
-	    				rajoutplus.add(resultat2[i]);
-	    				String resultat4=resultat2[i];
+	    				moreThanOneKey.add(keySplited[i]);
+	    				String resultat4=keySplited[i];
 	    			}
-	    			plusieurscles.add(rajoutplus);
+	    			arrayOfArrayOfKeys.add(moreThanOneKey);
 	    		}
 	    	}
 	    }
-	    sauv.addtoSauv(SetParam,etude, ensemble, plusieurscles);
+	    sauv.addToSave(SetParam,keysAlone, ensemble, arrayOfArrayOfKeys);
 	    for (Conversation conv : ensemble.getConversationSet()) {
 	    	for (Event evenement : conv.getConv()) {
-	    		renvoi= renvoi  +evenement.getligne()+ "\n";
+	    		writingInFile= writingInFile  +evenement.getligne()+ "\n";
 	    	}
-	    	renvoi = renvoi + "\n \n";
-	    	renvoi = renvoi + conv.getClechoisi() + "\n" + "req : " + conv.getReq() + "         rep : " + conv.getRep() ;
-	    	renvoi = renvoi + "\n \n \n \n";
+	    	writingInFile = writingInFile + "\n \n";
+	    	writingInFile = writingInFile + conv.getChoosedKeys() + "\n" + "req : " + conv.getReq() + "         rep : " + conv.getRep() ;
+	    	writingInFile = writingInFile + "\n \n \n \n";
 	    }
 	    
-	    renvoi = renvoi + "\n \n \n \n";
-	    renvoi = renvoi + ensemble.getHeuristique(ensemble) + "\n";
+	    writingInFile = writingInFile + "\n \n \n \n";
+	    writingInFile = writingInFile + ensemble.getHeuristique(ensemble) + "\n";
 	    try {
 	    FileWriter fw = new FileWriter(dir.getAbsoluteFile());
 	    BufferedWriter bw = new BufferedWriter(fw);
-	    bw.write(renvoi);
+	    bw.write(writingInFile);
 	    bw.close();
 	  //  threadpool.threadpool.shutdownNow();
 	    }
