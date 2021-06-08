@@ -66,7 +66,59 @@ public class Metric {
     
     }
     
+    public static float ReqwResp(ConversationSet ensemble) {
+    	ArrayList<Conversation> ensembleconv = new ArrayList<Conversation>(ensemble.getConversationSet());
+    	int numberReq=0;
+    	float qualityRequest=0;
+    	for (Conversation conv : ensembleconv) {
+    		if (conv.size()>2) {
+    			if (conv.getReq()>conv.getRep()){
+    				numberReq=conv.getReq();
+    				qualityRequest+=conv.getRep();
+    			}
+    			else {
+    				numberReq=conv.getReq();
+    				qualityRequest+=conv.getReq();
+    			}
+    		}
+    	}
+    	qualityRequest=qualityRequest/numberReq;
+    	return qualityRequest;
+    }
+    
+    public static float RespwReq(ConversationSet ensemble) {
+    	ArrayList<Conversation> ensembleconv = new ArrayList<Conversation>(ensemble.getConversationSet());
+    	int numberRep=0;
+    	float qualityResponse=0;
+    	for (Conversation conv : ensembleconv) {
+    		if (conv.size()>2) {
+    			if (conv.getRep()>conv.getReq()){
+    				numberRep=conv.getRep();
+    				qualityResponse+=conv.getReq();
+    			}
+    			else {
+    				numberRep=conv.getRep();
+    				qualityResponse+=conv.getRep();
+    			}
+    		}
+    	}
+    	qualityResponse=qualityResponse/numberRep;
+    	return qualityResponse;
+    }
 
+    public static float startByARequest(ConversationSet ensemble) {
+    	ArrayList<Conversation> ensembleconv = new ArrayList<Conversation>(ensemble.getConversationSet());
+    	float startingByRequest=0;
+    	float numberOfConversations=0;
+    	numberOfConversations+=1;
+    	for (Conversation conv : ensembleconv) {
+			Event premierevent=conv.getFirstEvent();
+	    	if (premierevent.isReq()) {
+	    		startingByRequest+=1;
+	    	}
+    	}
+    	return startingByRequest/numberOfConversations;
+    }
     
     /*
     public static float qualite3() {
