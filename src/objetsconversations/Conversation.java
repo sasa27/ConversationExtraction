@@ -8,23 +8,23 @@ import java.util.Collections;
 public class Conversation{
   public ArrayList<Event> conv;
 
-  public ArrayList<ArrayList<String>> clechoisi;
+  public ArrayList<ArrayList<String>> choosedKeys;
 
-  public ArrayList<String> Assignements;
+  public ArrayList<String> assignments;
   public ArrayList<String> cle;
 
-  public int nbrequete;
-  public int nbreponse;
+  public int nbRequest;
+  public int nbResponse;
   
   public Conversation(){
       conv= new ArrayList<Event>();
 
 
-      clechoisi= new ArrayList<ArrayList<String>>();
+      choosedKeys= new ArrayList<ArrayList<String>>();
 
-      nbrequete=0;
-      nbreponse=0;
-      Assignements= new ArrayList<String>();
+      nbRequest=0;
+      nbResponse=0;
+      assignments= new ArrayList<String>();
       
       cle=new ArrayList<String>();;
   }
@@ -36,15 +36,15 @@ public class Conversation{
       }
       
  
-      clechoisi= new ArrayList<ArrayList<String>>();
-      for(ArrayList<String> choisi : conversation.clechoisi) {
-    	  clechoisi.add(choisi);
+      choosedKeys= new ArrayList<ArrayList<String>>();
+      for(ArrayList<String> choisi : conversation.choosedKeys) {
+    	  choosedKeys.add(choisi);
       }
-      nbrequete=conversation.nbrequete;
-      nbreponse=conversation.nbreponse;
-      Assignements =  new ArrayList<String>();
-      for (String assi : conversation.Assignements) {
-    	  Assignements.add(assi);
+      nbRequest=conversation.nbRequest;
+      nbResponse=conversation.nbResponse;
+      assignments =  new ArrayList<String>();
+      for (String assi : conversation.assignments) {
+    	  assignments.add(assi);
       }
       cle=new ArrayList<String>();;
       
@@ -57,37 +57,37 @@ public class Conversation{
     	  conv.add(ev);
       }
       
-      Assignements =  new ArrayList<String>();
-      for (String assi : conversation.Assignements) {
-    	  Assignements.add(assi);
+      assignments =  new ArrayList<String>();
+      for (String assi : conversation.assignments) {
+    	  assignments.add(assi);
       }
       
 
-      clechoisi= new ArrayList<ArrayList<String>>();
-      for(ArrayList<String> choisi : conversation.clechoisi) {
-    	  clechoisi.add(choisi);
+      choosedKeys= new ArrayList<ArrayList<String>>();
+      for(ArrayList<String> choisi : conversation.choosedKeys) {
+    	  choosedKeys.add(choisi);
       }
       
       for(String param : reqorrep.getparams()) {
-    	  if (!Assignements.contains(param)) {
-    		  Assignements.add(param);
+    	  if (!assignments.contains(param)) {
+    		  assignments.add(param);
     	  }
       }
       if (reqorrep.isReq()) {
-    	  nbrequete=conversation.getReq()+1;
-    	  nbreponse=conversation.getRep();
+    	  nbRequest=conversation.getReq()+1;
+    	  nbResponse=conversation.getRep();
       }
       else { if (reqorrep.isResp()) {
-    	  nbrequete=conversation.getReq();
-    	  nbreponse=conversation.getRep()+1;
+    	  nbRequest=conversation.getReq();
+    	  nbResponse=conversation.getRep()+1;
       }
       else {
-    	  nbrequete=conversation.getReq();
-    	  nbreponse=conversation.getRep();
+    	  nbRequest=conversation.getReq();
+    	  nbResponse=conversation.getRep();
       }
       }
       cle=nouvellescles;
-      clechoisi.add(nouvellescles);
+      choosedKeys.add(nouvellescles);
       
       conv.add(reqorrep);
   }
@@ -95,23 +95,23 @@ public class Conversation{
   
   public Conversation(Event event){
     conv= new ArrayList<Event>();
-    Assignements =  new ArrayList<String>();
+    assignments =  new ArrayList<String>();
     for(String param : event.getparams()) {
-  	  if (!Assignements.contains(param)) {
-  		  Assignements.add(param);
+  	  if (!assignments.contains(param)) {
+  		  assignments.add(param);
   	  }
     }
-    clechoisi=new ArrayList<ArrayList<String>>();
+    choosedKeys=new ArrayList<ArrayList<String>>();
 
-    nbrequete=0;
-    nbreponse=0;
+    nbRequest=0;
+    nbResponse=0;
     cle=new ArrayList<String>();
     conv.add(event);
     if (event.isReq()) {
-		nbrequete++;
+		nbRequest++;
 	}
     if (event.isResp()){
-		nbreponse++;
+		nbResponse++;
 	}
    
   }
@@ -127,10 +127,10 @@ public class Conversation{
     
     if (evenement.isReq()) {
     	
-    	this.nbrequete+=1;
+    	this.nbRequest+=1;
     }
     else {
-    	this.nbreponse+=1;
+    	this.nbResponse+=1;
     }
   }
 
@@ -160,19 +160,19 @@ public class Conversation{
   
 
   public ArrayList<ArrayList<String>> getChoosedKeys() {
-	return clechoisi;
+	return choosedKeys;
 	}
 
-	public void addClechoisi(ArrayList<String> clechoisi) {
-	this.clechoisi.add(clechoisi);
+	public void addChoosedKeys(ArrayList<String> clechoisi) {
+	this.choosedKeys.add(clechoisi);
 	}
   
 
 	public int getReq(){
-		return this.nbrequete;
+		return this.nbRequest;
 	}
 	public int getRep(){
-		return this.nbreponse;
+		return this.nbResponse;
 	}
 	
 	

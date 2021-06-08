@@ -14,7 +14,7 @@ public class Save {
 	public int nbconv;
 	public int nbfiles;
 	public File file;
-	public ArrayList<ArrayList<String>> compteurtotal; 
+	public ArrayList<ArrayList<String>> counter; 
 	public boolean flag;
 	
 	
@@ -28,7 +28,7 @@ public class Save {
 		if ((!file.exists()) || (!file.isDirectory())){
 			file.mkdir();
 		}		
-		compteurtotal=new ArrayList<ArrayList<String>>();
+		counter=new ArrayList<ArrayList<String>>();
 		flag=true;
 	}
 	
@@ -61,13 +61,13 @@ public class Save {
 				writingInFile+=addition.toString() + "      "  + Collections.frequency(theKeys, addition)    +  "  time";
 				writingInFile+="\n";
 				verif.add(addition);
-				this.compteurtotal.add(addition);
+				this.counter.add(addition);
 			}
 		}
 		for (String total : singleKeys) {
 			ArrayList<String> retour = new ArrayList<String>();
 			retour.add(total);
-			this.compteurtotal.add(retour);
+			this.counter.add(retour);
 		}
 		
 		writingInFile += "for an heuristic of : "+ensemble.getHeuristique(ensemble) +"\n \n \n \n";
@@ -104,11 +104,11 @@ public class Save {
 	public void retourglobal () {
 		String renvoi="";
 		Set<ArrayList<String>> SetParam= new LinkedHashSet<>();
-		for (ArrayList<String> param1 : this.compteurtotal) {
+		for (ArrayList<String> param1 : this.counter) {
 			SetParam.add(param1);
 		}
 		for (ArrayList<String> param : SetParam) {
-			renvoi = renvoi+param + " here " + Collections.frequency(compteurtotal, param) + " times";
+			renvoi = renvoi+param + " here " + Collections.frequency(counter, param) + " times";
 			renvoi=renvoi+"\n";
 		}
 				try {
@@ -125,12 +125,12 @@ public class Save {
 	public void traceglobal() {
 		String writingInFile="";
 		Set<ArrayList<String>> SetParam= new LinkedHashSet<>();
-		for (ArrayList<String> param1 : this.compteurtotal) {
+		for (ArrayList<String> param1 : this.counter) {
 			SetParam.add(param1);
 		}
 		for (ArrayList<String> param : SetParam) {
 			if (param.toString().contains("[session]")) {
-			writingInFile = writingInFile+param + " here " + Collections.frequency(compteurtotal, param)+"/"+compteurtotal.size() + "times";
+			writingInFile = writingInFile+param + " here " + Collections.frequency(counter, param)+"/"+counter.size() + "times";
 			writingInFile=writingInFile+"\n";
 			}
 		}

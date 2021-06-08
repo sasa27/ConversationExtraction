@@ -19,24 +19,21 @@ import split.Trace;
 import parralelisation.*;
 import split.Regex;
 
-import java.io.BufferedWriter;
 
 public class FindConversation {
 
 	private static ArrayList<Conversation> ensembleconv;
 	
-	public static void Find(ConversationSet ensemble, int ligne , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv){
-		System.out.println(ligne);
+	public static void Find(ConversationSet ensemble, int line , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv){
+		System.out.println(line);
 		
-		if(ligne!=trace.getSize()) {
-			boolean bon=false;
-			Event eventmoment=trace.getEvent(ligne);
+		if(line!=trace.getSize()) {
+			Event eventmoment=trace.getEvent(line);
 
 			ensembleconv = ensemble.getConversationSet();
 			
-			if (ligne>=1) {
+			if (line>=1) {
 			//createNewConversationSetIfPossible
-				ArrayList<ConversationSet> nouvelleliste = new ArrayList<ConversationSet>();
 				for (Conversation conver : ensembleconv) {
 					ArrayList<ArrayList<String>> Intersection= ParcoursConversationsSet.intersection(eventmoment, conver);
 					
@@ -44,18 +41,17 @@ public class FindConversation {
 						
 						for (ArrayList<String> inter : Intersection) {
 							boolean verificationToutesConversations=true;
-							Conversation nouvelleconv = new Conversation(conver,inter, eventmoment);
-							ConversationSet Convers = new ConversationSet(ensemble,conver,nouvelleconv, inter, eventmoment);
-							for (Conversation conversationVerif : Convers.ConvSet) {
-								if ((!Invariant.Invariant2(Convers, conversationVerif)) || (!Invariant.Invariant3(Convers,conversationVerif))) {
+							Conversation newConv = new Conversation(conver,inter, eventmoment);
+							ConversationSet newConvSet = new ConversationSet(ensemble,conver,newConv, inter, eventmoment);
+							for (Conversation conversationVerif : newConvSet.ConvSet) {
+								if ((!Invariant.Invariant2(newConvSet, conversationVerif)) || (!Invariant.Invariant3(newConvSet,conversationVerif))) {
 										verificationToutesConversations = false;
 								}
 							}
 							
 							if(verificationToutesConversations) {
 								
-								checkTresholdAndSubmitNewCreatedTask(new ConversationSet(ensemble,conver,new Conversation(conver,inter, eventmoment), inter, eventmoment), ligne , end, trace, threadpool,regex, sauv);
-								bon=true;
+								checkTresholdAndSubmitNewCreatedTask(new ConversationSet(ensemble,conver,new Conversation(conver,inter, eventmoment), inter, eventmoment), line , end, trace, threadpool,regex, sauv);
 							}
 						}
 					}
@@ -65,17 +61,16 @@ public class FindConversation {
 			//tryNewConversationWithTheCurrentEvent
 				Conversation nouvelleconv2 = new Conversation(eventmoment);
 				ensemble.ConvSet.add(nouvelleconv2);
-				boolean verificationToutesConversations= true;
+				boolean invariantVerificationForAllConversations= true;
 				for (Conversation conversationVerif : ensemble.ConvSet) {
 					if ((!Invariant.Invariant2(ensemble, conversationVerif)) || (!Invariant.Invariant3(ensemble,conversationVerif))) {
-							verificationToutesConversations = false;
+							invariantVerificationForAllConversations = false;
 						
 					}
 				}
-				if(verificationToutesConversations) {
+				if(invariantVerificationForAllConversations) {
 					ConversationSet ensemble2=new ConversationSet(ensemble);
-					checkTresholdAndSubmitNewCreatedTask(ensemble2, ligne , end, trace, threadpool,regex, sauv);
-					bon=true;
+					checkTresholdAndSubmitNewCreatedTask(ensemble2, line , end, trace, threadpool,regex, sauv);
 				}
 				
 		ensemble=null;
@@ -105,7 +100,7 @@ public class FindConversation {
 	public static void checkTresholdAndSubmitNewCreatedTask(ConversationSet ensemble, int ligne , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv) {
 		if (TraceCondition.treshold(ensemble, ligne)) {
 			try {
-				Task tache = new Task("i",ensemble,ligne+1,end,trace, threadpool , regex, sauv);
+				Task tache = new Task(ensemble,ligne+1,end,trace, threadpool , regex, sauv);
 				threadpool.SubmitTask(tache);
 			}
 			catch(Exception e){

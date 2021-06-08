@@ -4,7 +4,7 @@ import java.io.File;
 
 import java.util.*;
 
-import metrique.MetriquePersonnel;
+import metrique.Metric;
 
 public class ConversationSet implements Cloneable {
 	public ArrayList<Conversation> ConvSet;
@@ -77,8 +77,8 @@ public class ConversationSet implements Cloneable {
 
 	
 	
-	public static void setEnsembleConversation(Conversation Conversation, ConversationSet ensembledumoment){
-		ensembledumoment.getConversationSet().add(Conversation);
+	public static void setEnsembleConversation(Conversation Conversation, ConversationSet theSet){
+		theSet.getConversationSet().add(Conversation);
 		
 	}
 
@@ -87,7 +87,7 @@ public class ConversationSet implements Cloneable {
 	
 	//retourne l'heuristique d'un evenement
 	public float getHeuristique(ConversationSet ensemble){
-        return MetriquePersonnel.GetMetriquePersonnel(ensemble);
+        return Metric.GetMetriquePersonnel(ensemble);
     }
 
 	
