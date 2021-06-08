@@ -2,7 +2,7 @@ package objetsconversations;
 import java.util.ArrayList;
 
 
-public class ParcoursConversationsSet {
+public class RouteConversationsSet {
 	
 	
 

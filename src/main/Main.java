@@ -47,7 +47,6 @@ public class Main {
 		boolean firstResult=false;
 		if (Arrays.stream(args).anyMatch("-f"::equals)) {
 			firstResult=true;
-			System.out.println("match");
 		}
 		//Split the log and detect the sessions and  dependencies
 		Save count=new Save(new File(tmp));

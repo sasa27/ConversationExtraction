@@ -22,58 +22,21 @@ import split.Regex;
 
 public class FindConversation {
 
-	private static ArrayList<Conversation> ensembleconv;
+	private static ArrayList<Conversation> ensembleOfConversations;
 	
 	public static void Find(ConversationSet ensemble, int line , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv){
 		System.out.println(line);
 		
 		if(line!=trace.getSize()) {
-			Event eventmoment=trace.getEvent(line);
+			Event currentEvent=trace.getEvent(line);
 
-			ensembleconv = ensemble.getConversationSet();
+			ensembleOfConversations = ensemble.getConversationSet();
 			
 			if (line>=1) {
-			//createNewConversationSetIfPossible
-				for (Conversation conver : ensembleconv) {
-					ArrayList<ArrayList<String>> Intersection= ParcoursConversationsSet.intersection(eventmoment, conver);
-					
-					if (Invariant.invariantintersect(Intersection)) {
-						
-						for (ArrayList<String> inter : Intersection) {
-							boolean verificationToutesConversations=true;
-							Conversation newConv = new Conversation(conver,inter, eventmoment);
-							ConversationSet newConvSet = new ConversationSet(ensemble,conver,newConv, inter, eventmoment);
-							for (Conversation conversationVerif : newConvSet.ConvSet) {
-								if ((!Invariant.Invariant2(newConvSet, conversationVerif)) || (!Invariant.Invariant3(newConvSet,conversationVerif))) {
-										verificationToutesConversations = false;
-								}
-							}
-							
-							if(verificationToutesConversations) {
-								
-								checkTresholdAndSubmitNewCreatedTask(new ConversationSet(ensemble,conver,new Conversation(conver,inter, eventmoment), inter, eventmoment), line , end, trace, threadpool,regex, sauv);
-							}
-						}
-					}
-				}
+				createNewConversationSetIfPossible(ensemble, line , end, trace, threadpool, regex, sauv, currentEvent);
 			}
-			
-			//tryNewConversationWithTheCurrentEvent
-				Conversation nouvelleconv2 = new Conversation(eventmoment);
-				ensemble.ConvSet.add(nouvelleconv2);
-				boolean invariantVerificationForAllConversations= true;
-				for (Conversation conversationVerif : ensemble.ConvSet) {
-					if ((!Invariant.Invariant2(ensemble, conversationVerif)) || (!Invariant.Invariant3(ensemble,conversationVerif))) {
-							invariantVerificationForAllConversations = false;
-						
-					}
-				}
-				if(invariantVerificationForAllConversations) {
-					ConversationSet ensemble2=new ConversationSet(ensemble);
-					checkTresholdAndSubmitNewCreatedTask(ensemble2, line , end, trace, threadpool,regex, sauv);
-				}
-				
-		ensemble=null;
+			tryNewConversationWithTheCurrentEvent(ensemble, line , end, trace, threadpool, regex, sauv, currentEvent);
+			ensemble=null;
 		
 		}
 		
@@ -82,17 +45,54 @@ public class FindConversation {
 			ResultsWriter.write(ensemble, trace, sauv);
 			sauv.nbconv+=1;
 			if (end) {
-				threadpool.threadpool.shutdownNow();
+				threadpool.shut();
 			}
 		}
 		return ;
 	
 	}
 	
-
+	public static void createNewConversationSetIfPossible(ConversationSet ensemble, int line , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv, Event currentEvent) {
+		for (Conversation conver : ensembleOfConversations) {
+			ArrayList<ArrayList<String>> Intersection= RouteConversationsSet.intersection(currentEvent, conver);
+			
+			if (Invariant.invariantintersect(Intersection)) {
+				
+				for (ArrayList<String> keysForIntersection : Intersection) {
+					boolean verificationAllConversations=true;
+					Conversation newConv = new Conversation(conver,keysForIntersection, currentEvent);
+					ConversationSet newConvSet = new ConversationSet(ensemble,conver,newConv, keysForIntersection, currentEvent);
+					for (Conversation conversationVerif : newConvSet.ConvSet) {
+						if ((!Invariant.Invariant2(newConvSet, conversationVerif)) || (!Invariant.Invariant3(newConvSet,conversationVerif))) {
+								verificationAllConversations = false;
+						}
+					}
+					
+					if(verificationAllConversations) {
+						
+						checkTresholdAndSubmitNewCreatedTask(new ConversationSet(ensemble,conver,new Conversation(conver,keysForIntersection, currentEvent), keysForIntersection, currentEvent), line , end, trace, threadpool,regex, sauv);
+					}
+				}
+			}
+		}
+	}
 	
 	
-	
+	public static void tryNewConversationWithTheCurrentEvent(ConversationSet ensemble, int line , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv, Event currentEvent) {
+		Conversation nouvelleconv2 = new Conversation(currentEvent);
+		ensemble.ConvSet.add(nouvelleconv2);
+		boolean invariantVerificationForAllConversations= true;
+		for (Conversation conversationVerif : ensemble.ConvSet) {
+			if ((!Invariant.Invariant2(ensemble, conversationVerif)) || (!Invariant.Invariant3(ensemble,conversationVerif))) {
+					invariantVerificationForAllConversations = false;
+				
+			}
+		}
+		if(invariantVerificationForAllConversations) {
+			ConversationSet newConvSetWithNewConversationConsistingOfTheNewEvent=new ConversationSet(ensemble);
+			checkTresholdAndSubmitNewCreatedTask(newConvSetWithNewConversationConsistingOfTheNewEvent, line , end, trace, threadpool,regex, sauv);
+		}
+	}
 	
 	
 	

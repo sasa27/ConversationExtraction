@@ -33,6 +33,10 @@ public class ThreadExecutor {
         return this.queue;
     }
     
+    public void shut() {
+    	this.threadpool.shutdownNow();
+    }
+    
     public void SubmitTask(Task task) {
     	/*
     	this.numberThread+=1;
