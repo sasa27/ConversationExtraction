@@ -92,7 +92,7 @@ public class FindConversation {
 			ResultsWriter.write(ensemble, trace, sauv);
 			sauv.nbconv+=1;
 			if (fini) {
-				threadpool.threadpool.shutdown();
+				threadpool.threadpool.shutdownNow();
 			}
 		}
 		return ;
