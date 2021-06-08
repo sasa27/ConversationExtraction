@@ -38,7 +38,7 @@ public class MainSplit {
 	/** 
 	public static Dependency Dep;
 	*/
-	public static void main(String[] args, sauvegarde sauv, boolean premier) {
+	public static void main(String[] args, Save sauv, boolean premier) {
 		//parse the log
 		final long timebuildingTraces1 = System.currentTimeMillis();
 		means = new HashMap<String, Double>();

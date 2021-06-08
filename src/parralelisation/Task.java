@@ -1,7 +1,7 @@
 package parralelisation;
 import split.Trace;
 import split.Regex;
-import main.sauvegarde;
+import main.Save;
 import metrique.MetriquePersonnel;
 import objetsconversations.ConversationSet;
 public class Task implements Runnable{
@@ -21,9 +21,9 @@ public class Task implements Runnable{
     public ThreadExecutor threadpool;
     public float priority;
     public MetriquePersonnel metrique;
-    public sauvegarde sauv;
+    public Save sauv;
     public Regex regex;
-    public Task(String name, ConversationSet ensembleconv, int ligne , boolean bool, Trace trace, ThreadExecutor threadpool,  Regex regex,sauvegarde sauv){
+    public Task(String name, ConversationSet ensembleconv, int ligne , boolean bool, Trace trace, ThreadExecutor threadpool,  Regex regex,Save sauv){
         this.name = name; 
         this.ensembleconv=ensembleconv;
         this.ligne=ligne;

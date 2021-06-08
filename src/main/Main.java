@@ -50,7 +50,7 @@ public class Main {
 			System.out.println("match");
 		}
 		//Split the log and detect the sessions and  dependencies
-		sauvegarde compt=new sauvegarde(new File(tmp));
+		Save compt=new Save(new File(tmp));
 		if(reg){
 			String[] argsSplit = {"-i", log, "-r", regex, "-o", tmp, mode};
 			split.MainSplit.main(argsSplit, compt, prem);
@@ -60,6 +60,9 @@ public class Main {
 			split.MainSplit.main(argsSplit, compt, prem);
 		}
 		final long timebuildingTraces1 = System.currentTimeMillis();
+		
+		
+		
 		//coupeurfichiertest.coupeurfichier(new File(log));
 		
 		

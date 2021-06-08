@@ -159,7 +159,7 @@ public class Conversation{
   
   
 
-  public ArrayList<ArrayList<String>> getClechoisi() {
+  public ArrayList<ArrayList<String>> getChoosedKeys() {
 	return clechoisi;
 	}
 

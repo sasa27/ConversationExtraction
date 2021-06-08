@@ -23,14 +23,9 @@ import java.io.BufferedWriter;
 
 public class FindConversation {
 
-	//ensemble de conversation
 	private static ArrayList<Conversation> ensembleconv;
-
-	//ce que l'on va écrire dans le fichier
-	public static String output;
-	public static boolean TraceValide;
-	public static boolean nouveau;
-	public static void Find(ConversationSet ensemble, int ligne , Boolean fini, Trace trace, ThreadExecutor threadpool, Regex regex,sauvegarde sauv){
+	
+	public static void Find(ConversationSet ensemble, int ligne , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv){
 		System.out.println(ligne);
 		
 		if(ligne!=trace.getSize()) {
@@ -59,7 +54,7 @@ public class FindConversation {
 							
 							if(verificationToutesConversations) {
 								
-								checkTresholdAndSubmitNewCreatedTask(new ConversationSet(ensemble,conver,new Conversation(conver,inter, eventmoment), inter, eventmoment), ligne , fini, trace, threadpool,regex, sauv);
+								checkTresholdAndSubmitNewCreatedTask(new ConversationSet(ensemble,conver,new Conversation(conver,inter, eventmoment), inter, eventmoment), ligne , end, trace, threadpool,regex, sauv);
 								bon=true;
 							}
 						}
@@ -79,7 +74,7 @@ public class FindConversation {
 				}
 				if(verificationToutesConversations) {
 					ConversationSet ensemble2=new ConversationSet(ensemble);
-					checkTresholdAndSubmitNewCreatedTask(ensemble2, ligne , fini, trace, threadpool,regex, sauv);
+					checkTresholdAndSubmitNewCreatedTask(ensemble2, ligne , end, trace, threadpool,regex, sauv);
 					bon=true;
 				}
 				
@@ -91,7 +86,7 @@ public class FindConversation {
 			
 			ResultsWriter.write(ensemble, trace, sauv);
 			sauv.nbconv+=1;
-			if (fini) {
+			if (end) {
 				threadpool.threadpool.shutdownNow();
 			}
 		}
@@ -107,10 +102,10 @@ public class FindConversation {
 	
 	
 	
-	public static void checkTresholdAndSubmitNewCreatedTask(ConversationSet ensemble, int ligne , Boolean fini, Trace trace, ThreadExecutor threadpool, Regex regex,sauvegarde sauv) {
+	public static void checkTresholdAndSubmitNewCreatedTask(ConversationSet ensemble, int ligne , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv) {
 		if (TraceCondition.treshold(ensemble, ligne)) {
 			try {
-				Task tache = new Task("i",ensemble,ligne+1,fini,trace, threadpool , regex, sauv);
+				Task tache = new Task("i",ensemble,ligne+1,end,trace, threadpool , regex, sauv);
 				threadpool.SubmitTask(tache);
 			}
 			catch(Exception e){
