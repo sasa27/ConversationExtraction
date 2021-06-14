@@ -34,7 +34,7 @@ public class ThreadExecutor {
     }
     
     public void shut() {
-    	this.threadpool.shutdownNow();
+    	this.threadpool.shutdown();
     }
     
     public void SubmitTask(Task task) {
