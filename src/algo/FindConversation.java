@@ -44,9 +44,9 @@ public class FindConversation {
 			
 			ResultsWriter.write(ensemble, trace, sauv);
 			sauv.nbconv+=1;
-			if (end) {
+			/*if (end) {
 				threadpool.shut();
-			}
+			}*/
 		}
 		return ;
 	
