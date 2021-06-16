@@ -22,7 +22,7 @@ public class Task implements Runnable{
     public Metric metrique;
     public Save sauv;
     public Regex regex;
-    public Task(ConversationSet ensembleconv, int ligne , boolean bool, Trace trace, ThreadExecutor threadpool,  Regex regex,Save sauv){
+    public Task(ConversationSet ensembleconv, int ligne , boolean bool, Trace trace,ThreadExecutor threadpool,  Regex regex,Save sauv){
         this.ensembleconv=ensembleconv;
         this.ligne=ligne;
         this.bool=bool;
@@ -63,7 +63,7 @@ public class Task implements Runnable{
     //le run pour le threadpool
     @Override
     public void run() {
-         algo.FindConversation.Find(this.getensembleconv(), this.getligne(), this.getbool(),this.gettrace(), this.getthreadpool(), this.regex, this.sauv);
+         algo.FindConversation.find(this.getensembleconv(), this.getligne(), this.getbool(),this.gettrace(), this.getthreadpool(), this.regex, this.sauv);
         
     }
     

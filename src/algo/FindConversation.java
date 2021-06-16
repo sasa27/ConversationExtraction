@@ -24,25 +24,27 @@ public class FindConversation {
 
 	private static ArrayList<Conversation> ensembleOfConversations;
 	
-	public static void Find(ConversationSet ensemble, int line , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv){
+	
+	//méthode de test
+	public static void find(ConversationSet currentConversationSet, int line , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv){
 		System.out.println(line);
 		
 		if(line!=trace.getSize()) {
 			Event currentEvent=trace.getEvent(line);
 
-			ensembleOfConversations = ensemble.getConversationSet();
+			ensembleOfConversations = currentConversationSet.getConversationSet();
 			
 			if (line>=1) {
-				createNewConversationSetIfPossible(ensemble, line , end, trace, threadpool, regex, sauv, currentEvent);
+				createNewConversationSetIfPossible(currentConversationSet, line , end, trace, threadpool, regex, sauv, currentEvent);
 			}
-			tryNewConversationWithTheCurrentEvent(ensemble, line , end, trace, threadpool, regex, sauv, currentEvent);
-			ensemble=null;
+			tryNewConversationWithTheCurrentEvent(currentConversationSet, line , end, trace, threadpool, regex, sauv, currentEvent);
+			currentConversationSet=null;
 		
 		}
 		
 		else {
 			
-			ResultsWriter.write(ensemble, trace, sauv);
+			ResultsWriter.write(currentConversationSet, trace, sauv);
 			sauv.nbconv+=1;
 			/*if (end) {
 				threadpool.shut();
@@ -52,7 +54,8 @@ public class FindConversation {
 	
 	}
 	
-	public static void createNewConversationSetIfPossible(ConversationSet ensemble, int line , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv, Event currentEvent) {
+	
+	public static void createNewConversationSetIfPossible(ConversationSet currentConversationSet, int line , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv, Event currentEvent) {
 		for (Conversation conver : ensembleOfConversations) {
 			ArrayList<ArrayList<String>> Intersection= RouteConversationsSet.intersection(currentEvent, conver);
 			
@@ -61,16 +64,13 @@ public class FindConversation {
 				for (ArrayList<String> keysForIntersection : Intersection) {
 					boolean verificationAllConversations=true;
 					Conversation newConv = new Conversation(conver,keysForIntersection, currentEvent);
-					ConversationSet newConvSet = new ConversationSet(ensemble,conver,newConv, keysForIntersection, currentEvent);
-					for (Conversation conversationVerif : newConvSet.ConvSet) {
-						if ((!Invariant.Invariant2(newConvSet, conversationVerif)) || (!Invariant.Invariant3(newConvSet,conversationVerif))) {
-								verificationAllConversations = false;
-						}
-					}
+					ConversationSet newConvSet = new ConversationSet(currentConversationSet,conver,newConv, keysForIntersection, currentEvent);
+					
+					verificationInvariants(newConvSet);
 					
 					if(verificationAllConversations) {
 						
-						checkTresholdAndSubmitNewCreatedTask(new ConversationSet(ensemble,conver,new Conversation(conver,keysForIntersection, currentEvent), keysForIntersection, currentEvent), line , end, trace, threadpool,regex, sauv);
+						checkTresholdAndSubmitNewCreatedTask(new ConversationSet(currentConversationSet,conver,new Conversation(conver,keysForIntersection, currentEvent), keysForIntersection, currentEvent), line , end, trace, threadpool,regex, sauv);
 					}
 				}
 			}
@@ -78,17 +78,20 @@ public class FindConversation {
 	}
 	
 	
+	public static boolean verificationInvariants(ConversationSet verifThisConversationSet) {
+		boolean invariantVerificationForAllConversations =
+				verifThisConversationSet.ConvSet.stream().allMatch(conversationVerif ->
+				  Invariant.Invariant2(verifThisConversationSet, conversationVerif) &&
+				  Invariant.Invariant3(verifThisConversationSet,conversationVerif)
+				);
+		return invariantVerificationForAllConversations;
+				
+	}
+	
 	public static void tryNewConversationWithTheCurrentEvent(ConversationSet ensemble, int line , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv, Event currentEvent) {
 		Conversation nouvelleconv2 = new Conversation(currentEvent);
 		ensemble.ConvSet.add(nouvelleconv2);
-		boolean invariantVerificationForAllConversations= true;
-		for (Conversation conversationVerif : ensemble.ConvSet) {
-			if ((!Invariant.Invariant2(ensemble, conversationVerif)) || (!Invariant.Invariant3(ensemble,conversationVerif))) {
-					invariantVerificationForAllConversations = false;
-				
-			}
-		}
-		if(invariantVerificationForAllConversations) {
+		if(verificationInvariants(ensemble)) {
 			ConversationSet newConvSetWithNewConversationConsistingOfTheNewEvent=new ConversationSet(ensemble);
 			checkTresholdAndSubmitNewCreatedTask(newConvSetWithNewConversationConsistingOfTheNewEvent, line , end, trace, threadpool,regex, sauv);
 		}

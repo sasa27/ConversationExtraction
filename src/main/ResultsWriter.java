@@ -58,7 +58,7 @@ public class ResultsWriter {
 	
 	
 	
-	
+	//méthode pour écrire plusieurs dossier quand on utilise plusieurs fichiers de tests a la suite
 	public static synchronized void writeMoreThanOne(ConversationSet ensemble, Trace trace, Save sauv) {
 		
 		

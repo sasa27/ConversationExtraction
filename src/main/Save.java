@@ -17,7 +17,7 @@ public class Save {
 	public ArrayList<ArrayList<String>> counter; 
 	public boolean flag;
 	
-	
+	//compteur global pour la sauvegarde
 	public Save(File newFile){
 		arrayNumberOfApparitions= new ArrayList<Integer>();
 		save= new LinkedHashSet<>();
@@ -32,6 +32,8 @@ public class Save {
 		flag=true;
 	}
 	
+	
+	//a partir d'ici, sert pour les résultats de tests
 	public void addToSave(Set<String> setOfKeys, ArrayList<String> singleKeys, ConversationSet ensemble, ArrayList<ArrayList<String>> theKeys) {
 		this.arrayNumberOfApparitions= new ArrayList<Integer>();
 		this.save= new LinkedHashSet<>();

@@ -38,29 +38,15 @@ public class MainSplit {
 	/** 
 	public static Dependency Dep;
 	*/
-	public static void main(String[] args, Save sauv, boolean premier) {
+	public static void main(String[] args, Save sauv, boolean premier, boolean reg) {
 		//parse the log
 		final long timebuildingTraces1 = System.currentTimeMillis();
 		means = new HashMap<String, Double>();
-		boolean reg = true;
-		
-		if (Arrays.stream(args).anyMatch("-r"::equals)) {
-			try {
-				MapperOptions.setOptions(args);
-			} catch (Exception e) {
-				System.err.println("pb option");
-				System.exit(3);
-			}
-		}
-		else {
-			
-			try {
-				MapperOptions.setOptionsNoRegex(args);
-				reg=false;
-			} catch (Exception e) {
-				System.err.println("pb option");
-				System.exit(3);
-			}
+		try {
+		    MapperOptions.setOptions(args, reg);
+		} catch (Exception e) {
+		    System.err.println("pb option");
+		    System.exit(3);
 		}
 		
 		

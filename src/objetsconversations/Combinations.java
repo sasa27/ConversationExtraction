@@ -21,19 +21,4 @@ public class Combinations {
 	    }
 	    return combinations;
 	}
-	
-	
-	/*
-	ArrayList<ArrayList<String>> combinations = getCombinations(paramsSess);
-    
-    combinations.remove(0);
-    ArrayList<String> combinationsString= new ArrayList<String>();
-    for (ArrayList<String> combination : combinations) {
-    	//System.out.println(combination.toString());
-    	combinationsString.add(combination.toString());
-    	
-    }
-    //System.out.println(combinationsString);
-    paramsSess=combinationsString;
-    */
 }

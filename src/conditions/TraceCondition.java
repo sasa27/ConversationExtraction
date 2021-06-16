@@ -11,7 +11,7 @@ public class TraceCondition {
     }
     public static boolean treshold(ConversationSet trace, int ligne){
     	if (ligne>4) {
-    	if (Metric.GetMetriquePersonnel(trace)>=0.0) {
+    	if (Metric.GetMetriquePersonnel(trace)>=0.8) {
     		return true;
     	}
     	return false;
