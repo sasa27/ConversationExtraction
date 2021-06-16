@@ -21,46 +21,33 @@ public class Main {
 	
 
 	public static void main(String[] args) {
-		boolean reg = true;
-		if (Arrays.stream(args).anyMatch("-r"::equals)) {
-			
-			try {
-				FullOptions.setOptions(args);
-			} catch (Exception e) {
-				System.err.println("pb option");
-				System.exit(3);
-			}
-		}
-		else {
-			try {
-				FullOptions.setOptionsNoRegex(args);
-				reg=false;
-			} catch (Exception e) {
-				System.err.println("pb option");
-				System.exit(3);
-			}
+		boolean useRegex = Arrays.stream(args).anyMatch("-r"::equals);
+		try {
+		    FullOptions.setOptions(args, useRegex);
+		} catch (Exception e) {
+		    System.err.println("pb option");
+		    System.exit(3);
 		}
 		
 		
 		createDir();
 		String tmp = output ;
-		boolean firstResult=false;
-		if (Arrays.stream(args).anyMatch("-f"::equals)) {
-			firstResult=true;
-		}
+		boolean firstResult = Arrays.stream(args).anyMatch("-f"::equals);
 		//Split the log and detect the sessions and  dependencies
 		Save count=new Save(new File(tmp));
-		if(reg){
+		if(useRegex){
 			String[] argsSplit = {"-i", log, "-r", regex, "-o", tmp, mode};
-			split.MainSplit.main(argsSplit, count, firstResult);
+			split.MainSplit.main(argsSplit, count, firstResult, useRegex);
 		}
 		else {
 			String[] argsSplit = {"-i", log, "-o", tmp, mode};
-			split.MainSplit.main(argsSplit, count, firstResult);
+			split.MainSplit.main(argsSplit, count, firstResult, useRegex);
 		}
 		final long timebuildingTraces1 = System.currentTimeMillis();
 		
 		
+		
+		//pour couper des fichiers
 		
 		//coupeurfichiertest.coupeurfichier(new File(log));
 		

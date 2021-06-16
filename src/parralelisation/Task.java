@@ -63,7 +63,7 @@ public class Task implements Runnable{
     //le run pour le threadpool
     @Override
     public void run() {
-         algo.FindConversation.Find(this.getensembleconv(), this.getligne(), this.getbool(),this.gettrace(), this.getthreadpool(), this.regex, this.sauv);
+         algo.FindConversation.find(this.getensembleconv(), this.getligne(), this.getbool(),this.gettrace(), this.getthreadpool(), this.regex, this.sauv);
         
     }
     
