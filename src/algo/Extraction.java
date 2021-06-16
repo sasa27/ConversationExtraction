@@ -7,15 +7,15 @@ import split.Trace;
 
 public class Extraction {
 	public static ArrayList<Event> extractionWithKey(ArrayList<ArrayList<String>> chooseKeys, Trace trace){
-		ArrayList<Event> Extracted = new ArrayList<>();
+		ArrayList<Event> extracted = new ArrayList<>();
 		for(Event event : trace.seq) {
 			for(ArrayList<String> cle : chooseKeys) {
 				if(event.getparams().contains(cle.toString())) {
-					Extracted.add(event);
+					extracted.add(event);
 				}
 			}
 		}
-		return Extracted;
+		return extracted;
 	}
 	
 	/*
