@@ -26,7 +26,7 @@ public class FindConversation {
 	
 	
 	//méthode de test
-	public static void find(ConversationSet currentConversationSet, int line , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv){
+	public static void find(ConversationSet currentConversationSet, int line , boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv){
 		System.out.println(line);
 		
 		if(line!=trace.getSize()) {
@@ -55,7 +55,7 @@ public class FindConversation {
 	}
 	
 	
-	public static void createNewConversationSetIfPossible(ConversationSet currentConversationSet, int line , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv, Event currentEvent) {
+	public static void createNewConversationSetIfPossible(ConversationSet currentConversationSet, int line , boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv, Event currentEvent) {
 		for (Conversation conver : ensembleOfConversations) {
 			ArrayList<ArrayList<String>> Intersection= RouteConversationsSet.intersection(currentEvent, conver);
 			
@@ -87,7 +87,7 @@ public class FindConversation {
 				
 	}
 	
-	public static void tryNewConversationWithTheCurrentEvent(ConversationSet ensemble, int line , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv, Event currentEvent) {
+	public static void tryNewConversationWithTheCurrentEvent(ConversationSet ensemble, int line , boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv, Event currentEvent) {
 		Conversation nouvelleconv2 = new Conversation(currentEvent);
 		ensemble.ConvSet.add(nouvelleconv2);
 		if(verificationInvariants(ensemble)) {
@@ -99,7 +99,7 @@ public class FindConversation {
 	
 	
 	
-	public static void checkTresholdAndSubmitNewCreatedTask(ConversationSet ensemble, int ligne , Boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv) {
+	public static void checkTresholdAndSubmitNewCreatedTask(ConversationSet ensemble, int ligne , boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv) {
 		if (TraceCondition.treshold(ensemble, ligne)) {
 			try {
 				Task tache = new Task(ensemble,ligne+1,end,trace, threadpool , regex, sauv);
