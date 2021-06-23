@@ -17,10 +17,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 
 import java.util.Iterator;
-
+import algo.SeparationWhenNoRegex;
 import split.Regex;
-import algo.TestLecteur;
-import algo.TestSeparateur;
 import com.google.common.collect.Sets;
 /**
  * @author Blot Elliott
@@ -41,8 +39,8 @@ public class Event {
 	public String evenement;
 
 	public Event(String line){
-		ligne= TestSeparateur.nomevent(line);
-		paramsSess = TestSeparateur.Separation(line);
+		ligne= SeparationWhenNoRegex.nameOfAnEvent(line);
+		paramsSess = SeparationWhenNoRegex.separationWithoutRegex(line);
 		params = new ArrayList<String>();
 	}
 	

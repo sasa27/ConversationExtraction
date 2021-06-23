@@ -26,9 +26,9 @@ public class ResultsWriter {
 		
 			File dir = new File(sauv.file+"/resultat"+sauv.number+"/trace"+trace.compteur+".txt");
 				trace.compteur+=1;
-				File dossier=new File(sauv.file+"/resultat"+sauv.number);
-				if ((!dossier.exists()) || (!dossier.isDirectory())){
-					dossier.mkdir();
+				File directory=new File(sauv.file+"/resultat"+sauv.number);
+				if ((!directory.exists()) || (!directory.isDirectory())){
+					directory.mkdir();
 				}
 				
 			    String writingInFile = "";
