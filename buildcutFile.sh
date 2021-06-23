@@ -1,3 +1,3 @@
 #/bin/bash
 
-javac src/main/FileCutting.java -d bin -sourcepath src -cp "src/lib/*"
+javac src/main/MainFileCutting.java -d bin -sourcepath src -cp "src/lib/*"
