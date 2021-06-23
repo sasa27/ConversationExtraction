@@ -2,8 +2,8 @@ package algo;
 
 import java.util.ArrayList;
 
-public class TestSeparateur {
-    public static ArrayList<String> Separation(String line){
+public class SeparationWhenNoRegex {
+    public static ArrayList<String> separationWithoutRegex(String line){
         ArrayList<String> liste= new ArrayList<String>();
         final String SEPARATEUR = "\\(";
         String[] mots = line.split(SEPARATEUR);
@@ -16,7 +16,7 @@ public class TestSeparateur {
         }
         return liste;
     }
-    public static String nomevent(String line){
+    public static String nameOfAnEvent(String line){
         ArrayList<String> liste= new ArrayList<String>();
         final String SEPARATEUR = "\\(";
         String[] mots = line.split(SEPARATEUR);

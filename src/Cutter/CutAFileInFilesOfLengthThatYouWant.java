@@ -1,4 +1,4 @@
-package main;
+package Cutter;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,18 +11,16 @@ import java.util.regex.Matcher;
 
 import com.google.common.io.Files;
 
-public class coupeurfichiertest {
-	public static void coupeurfichier(File file) {
-		for (int i=0;i<20;i++) {
-			new File("logentrainementlog/log6/trace"+i+".txt");
-		}
+public class CutAFileInFilesOfLengthThatYouWant {
+	public static void cutAFile(File file , int numberOfSequences, int numberOfLinesInEacheSequence) {
 		try {
 			BufferedReader br = new BufferedReader (new FileReader(file));
 			String line = br.readLine()+"\n";
 			
-			for (int j=0; j<20;j++) {
-				FileWriter fw = new FileWriter("logentrainementlog/log6/trace"+j+".txt",true);
-				for (int k=0;k<22;k++) {
+			for (int j=0; j<numberOfSequences;j++) {
+				File fileToWrite=new File(file + "/"+ file+ "CutFromLine" +j*numberOfLinesInEacheSequence + "ToLine" + (j+1)*numberOfLinesInEacheSequence+".txt");
+				FileWriter fw = new FileWriter(fileToWrite,true);
+				for (int k=0;k<numberOfLinesInEacheSequence;k++) {
 					fw.write(line);
 					line = br.readLine()+"\n";
 				}
