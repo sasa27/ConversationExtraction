@@ -33,7 +33,6 @@ public class Extraction {
 		return extractedEvents;
 	}
 	
-	
 	/*
 	public static ArrayList<ArrayList<Event>> extractionWithMultipleKeys(ArrayList<ArrayList<String>> chooseKeys,Trace trace){
 		for 

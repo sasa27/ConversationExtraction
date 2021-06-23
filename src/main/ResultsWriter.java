@@ -23,13 +23,13 @@ public class ResultsWriter {
 		
 		
 		
-		
+		trace.compteur+=1;
+		File dossier=new File(sauv.file+"/resultat"+sauv.number);
+		if ((!dossier.exists()) || (!dossier.isDirectory())){
+			dossier.mkdir();
+		}
 			File dir = new File(sauv.file+"/resultat"+sauv.number+"/trace"+trace.compteur+".txt");
-				trace.compteur+=1;
-				File dossier=new File(sauv.file+"/resultat"+sauv.number);
-				if ((!dossier.exists()) || (!dossier.isDirectory())){
-					dossier.mkdir();
-				}
+				
 				
 			    String writingInFile = "";
 			    for (Conversation conv : ensemble.getConversationSet()) {

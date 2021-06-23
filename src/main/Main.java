@@ -4,6 +4,8 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import algo.Extraction;
 //import split.*;
 /**
  * 
@@ -28,7 +30,6 @@ public class Main {
 		    System.err.println("pb option");
 		    System.exit(3);
 		}
-		
 		
 		createDir();
 		String tmp = output ;
