@@ -11,13 +11,13 @@ Parallel algorithm for recovering conversations (sequences of correlated events 
 ## Usage
 You can compile the program by running the script **build.sh**.
 
-Once compiled, you can run the method with the script **Extracteur.sh**:
+Once compiled, you can run the method with the script **extractionWithWindows.sh** if you are using Windows or **extractionWithLinux.sh**:
   ```
-  Extracteur.sh -i <input> -r <regex> -o <output>
+  extractionWithWindows.sh -i <input> -r <regex> -o <output>  (same with linux)
   
   or for test :
   
-  Extracteur.sh -i <input> -o <output> 
+  extractionWithWindows.sh -i <input> -o <output> 
   but in this case your file must have line with : 
   name(param,param...)
   ```
@@ -66,6 +66,21 @@ If not using a regex :
 events need to be like that:
 
 Label(param1,param2,param3,...)
+
+## Working with a big file
+If you want to use this programm on a big log file, you might want to cut this file into smaller files easier to use.
+
+To this effect, there are 2 scripts : buildCutFile.sh and CutFile.sh.
+
+## Usage of CutFile.sh
+
+You can compile the program by running the script **buildCutFile.sh**.
+
+Once compiled, you can run the method with the script **CutFile.sh**:
+  ```
+  CutFile.sh PathOfTheFile NumberOfFilesYouWantToTransformItInto NumberOfLinesInEachFile
+  
+  Files are generated in the same folder as the file you used and the directory name is the file you used but without extensions.
 
 ## Overview
 Highly parallel algorithm to retrieve conversations from event logs, without having any knowledge about the used correlation mechanisms. 
