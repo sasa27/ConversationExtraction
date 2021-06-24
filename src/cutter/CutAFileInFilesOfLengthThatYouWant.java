@@ -35,8 +35,7 @@ public class CutAFileInFilesOfLengthThatYouWant {
 			{
 				numberOfLinesInEacheSequence = 0;
 			}
-			String ToCreate=file.getPath();
-			ToCreate=ToCreate.substring(0, ToCreate.lastIndexOf('.'));
+			String ToCreate="FileCutted";
 			File directory=new File(ToCreate);
 			if ((!directory.exists()) || (!directory.isDirectory())){
 				directory.mkdir();

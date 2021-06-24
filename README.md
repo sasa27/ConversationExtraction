@@ -80,7 +80,7 @@ Once compiled, you can run the method with the script **CutFile.sh**:
   ```
   CutFile.sh PathOfTheFile NumberOfFilesYouWantToTransformItInto NumberOfLinesInEachFile
   
-  Files are generated in the same folder as the file you used and the directory name is the file you used but without extensions.
+  Files are generated in the folder FileCutted.
 
 ## Overview
 Highly parallel algorithm to retrieve conversations from event logs, without having any knowledge about the used correlation mechanisms. 
