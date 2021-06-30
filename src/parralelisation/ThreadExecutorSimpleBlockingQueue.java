@@ -19,10 +19,8 @@ import split.*;
 
 public class ThreadExecutorSimpleBlockingQueue {
 	public ThreadPoolExecutor threadpool;
-    public int numberThread;
     public BlockingQueue<Runnable> queue;
-    public ThreadExecutorSimpleBlockingQueue(){
-    	numberThread=0;        
+    public ThreadExecutorSimpleBlockingQueue(){ 
         queue=new LinkedBlockingQueue<Runnable>();
         threadpool = new SimpleThreadPool(queue);
     }
