@@ -1,5 +1,6 @@
 package main;
 import objetsconversations.*;
+
 import split.*;
 import java.io.File;
 import java.io.FileWriter;
@@ -55,6 +56,46 @@ public class ResultsWriter {
 			    }
 		
 	    }
+public static synchronized void writeEasyToUnderstand(ConversationSet ensemble, Trace trace, Save sauv) {
+		
+		
+		
+		
+		trace.compteur+=1;
+		File dossier=new File(sauv.file+"/resultat"+sauv.number);
+		if ((!dossier.exists()) || (!dossier.isDirectory())){
+			dossier.mkdir();
+		}
+			File dir = new File(sauv.file+"/resultat"+sauv.number+"/trace"+trace.compteur+".txt");
+				
+				ArrayList<ArrayList<String>> usedKeys= new ArrayList<ArrayList<String>>();
+			    String writingInFile = "";
+			    for (Conversation conv : ensemble.getConversationSet()) {
+			    	for (Event evenement : conv.getConv()) {
+			    		writingInFile= writingInFile  +evenement.getligne()+ "\n";
+			    		for (ArrayList<String> key :conv.getChoosedKeys()) {
+				    		if (!usedKeys.contains(key)) {
+				    			usedKeys.add(key);
+				    		}
+			    		}
+			    	}
+			    }
+			    writingInFile = writingInFile + ensemble.getHeuristique(ensemble) + "\n";
+			    writingInFile = writingInFile + ensemble.getHeuristique(ensemble) + "\n";
+			    try {
+			    FileWriter fw = new FileWriter(dir.getAbsoluteFile());
+			    BufferedWriter bw = new BufferedWriter(fw);
+			    bw.write(writingInFile);
+			    bw.close();
+			  //  threadpool.threadpool.shutdownNow();
+			    }
+			    catch(Exception e) {
+			    	System.err.println(e);
+			    }
+		
+	    }
+	
+	
 	
 	
 	

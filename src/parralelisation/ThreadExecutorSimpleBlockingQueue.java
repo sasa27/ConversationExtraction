@@ -22,9 +22,9 @@ public class ThreadExecutorSimpleBlockingQueue {
     public int numberThread;
     public BlockingQueue<Runnable> queue;
     public ThreadExecutorSimpleBlockingQueue(){
-    	numberThread=0;
-        threadpool = new SimpleThreadPool();
+    	numberThread=0;        
         queue=new LinkedBlockingQueue<Runnable>();
+        threadpool = new SimpleThreadPool(queue);
     }
     public ThreadPoolExecutor getThreadpool(){
         return this.threadpool;
@@ -37,7 +37,10 @@ public class ThreadExecutorSimpleBlockingQueue {
     	this.threadpool.shutdown();
     }
     
-    public void SubmitTask(Task task) {
+    public void SubmitTask(TaskFinder task) {
+        this.threadpool.submit(task);
+    }
+    public void SubmitMinimizingTask(TaskMinimizing task) {
         this.threadpool.submit(task);
     }
 }
