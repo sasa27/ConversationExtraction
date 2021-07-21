@@ -2,7 +2,7 @@ package parralelisation;
 
 import java.util.Set;
 
-import objetsconversations.GroupOfKeys;
+import keyDecision.GroupOfKeys;
 
 public class TaskMinimizing implements Runnable{
 	public GroupOfKeys Group;

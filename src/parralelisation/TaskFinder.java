@@ -4,10 +4,10 @@ import split.Regex;
 
 import java.util.Set;
 
+import keyDecision.GroupOfKeys;
 import main.Save;
 import metrique.Metric;
 import objetsconversations.ConversationSet;
-import objetsconversations.GroupOfKeys;
 public class TaskFinder implements Runnable{
 	public GroupOfKeys Group;
 	public Set<Set<String>> ListKeyNow;
