@@ -1,5 +1,6 @@
 package keyDecision;
 import java.util.ArrayList;
+
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 
@@ -10,9 +11,7 @@ public class MainDecision {
 	public void main(){
 		ThreadExecutorSimpleBlockingQueue pool = new ThreadExecutorSimpleBlockingQueue();
 		GroupOfKeys CreatedGroup = new GroupOfKeys();
-		for(KeysFound S : CreatedGroup.groupOfKeysFound){
-			pool.SubmitMinimizingTask(TaskMinimizing(S, CreatedGroup, CreatedGroup.groupOfKeysFound.indexOf(S)));
-		}
+		pool.SubmitMinimizingTask(new TaskMinimizing(CreatedGroup));
 		while (!pool.threadpool.isTerminated()) {
         	try {
         	    Thread.sleep(1000);

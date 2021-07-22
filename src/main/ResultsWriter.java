@@ -1,6 +1,7 @@
 package main;
 import objetsconversations.*;
 
+
 import split.*;
 import java.io.File;
 import java.io.FileWriter;
@@ -16,6 +17,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.Collections;
+import java.util.HashSet;
 
 public class ResultsWriter {
 	
@@ -30,16 +32,27 @@ public class ResultsWriter {
 			dossier.mkdir();
 		}
 			File dir = new File(sauv.file+"/resultat"+sauv.number+"/trace"+trace.compteur+".txt");
+				Set<String> totalKeys = new HashSet<String>();
 				
+				for (Conversation conv : ensemble.getConversationSet()) {
+					for (ArrayList<String> key : conv.getChoosedKeys()) {
+						totalKeys.add(key.toString());
+					}
+				}
 				
 			    String writingInFile = "";
+			    writingInFile= writingInFile  +"Used Keys in the ConversationSet : "+  "\n";
+			    for (String keysToWrite : totalKeys) {
+			    	 writingInFile= writingInFile + keysToWrite+"\n";
+			    }
+			    writingInFile= writingInFile + "\n \n \n Conversations found with this set of keys : \n \n";
+			    int compteurOfConversations=0;
 			    for (Conversation conv : ensemble.getConversationSet()) {
+			    	writingInFile= writingInFile  +"conversation number "+ compteurOfConversations + "\n";
 			    	for (Event evenement : conv.getConv()) {
 			    		writingInFile= writingInFile  +evenement.getligne()+ "\n";
 			    	}
-			    	writingInFile = writingInFile + "\n \n";
-			    	writingInFile = writingInFile + conv.getChoosedKeys() + "\n" + "req : " + conv.getReq() + "         rep : " + conv.getRep() ;
-			    	writingInFile = writingInFile + "\n \n \n \n";
+			    	compteurOfConversations++;
 			    }
 			    
 			    writingInFile = writingInFile + "\n \n \n \n";

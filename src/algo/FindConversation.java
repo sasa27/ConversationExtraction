@@ -43,7 +43,6 @@ public class FindConversation {
 		}
 		
 		else {
-			
 			ResultsWriter.write(currentConversationSet, trace, sauv);
 			sauv.nbconv+=1;
 			/*if (end) {

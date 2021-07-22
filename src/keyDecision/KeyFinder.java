@@ -11,7 +11,7 @@ public class KeyFinder {
 					ListKeyNow.add(key);
 					listUnauthorizedKeysNow.addAll(foundKeysInOneFile.unauthorizedKeys);
 					TaskFinder task = new TaskFinder(Group, ListKeyNow, listUnauthorizedKeysNow,pool, position+1);
-					pool.SubmitTask(task);
+					pool.SubmitFindingTask(task);
 					
 				}
 			}
