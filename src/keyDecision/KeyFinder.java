@@ -1,21 +1,36 @@
 package keyDecision;
 import java.util.*;
+
 import objetsconversations.*;
 import parralelisation.*;
 public class KeyFinder {
-	public static void findingKeys(GroupOfKeys Group ,Set<Set<String>> ListKeyNow,Set<Set<String>> listUnauthorizedKeysNow, ThreadExecutorSimpleBlockingQueue pool, int position) {
-		KeysFound foundKeysInOneFile=Group.getgroupOfKeys(position);
-		if (foundKeysInOneFile.keys.size()!=0) {
-			for(Set<String> key : foundKeysInOneFile.keys){
-				if(VerificationUnauthorizedKeys.VerificationUnauthorizedKeysProcedure(foundKeysInOneFile.unauthorizedKeys,listUnauthorizedKeysNow)){
-					ListKeyNow.add(key);
-					listUnauthorizedKeysNow.addAll(foundKeysInOneFile.unauthorizedKeys);
-					TaskFinder task = new TaskFinder(Group, ListKeyNow, listUnauthorizedKeysNow,pool, position+1);
-					pool.SubmitFindingTask(task);
-					
+	public static void findingKeys(GroupOfAllFiles allFilesGroup, KeysFound Group , ThreadExecutorSimpleBlockingQueue pool, int position) {
+		
+		if(!(position==allFilesGroup.groupOfAllFiles.size())) {
+			GroupOfKeysInOneFile allInOneFile=allFilesGroup.groupOfAllFiles.get(position);
+			GroupOfKeysInOneFile newGroupWhenKeysInCommon=new GroupOfKeysInOneFile();
+			for(KeysFound keysToWorkWith: allInOneFile.groupOfKeysFound) {
+				if (!Collections.disjoint(keysToWorkWith.keys, Group.keys)) {
+					newGroupWhenKeysInCommon.groupOfKeysFound.add(new KeysFound(keysToWorkWith));
 				}
 			}
-			
+			if (!newGroupWhenKeysInCommon.groupOfKeysFound.isEmpty()) {
+				allInOneFile=newGroupWhenKeysInCommon;
+			}
+			for(KeysFound keysToWorkWith: allInOneFile.groupOfKeysFound){
+				if(VerificationUnauthorizedKeys.VerificationUnauthorizedKeysProcedure(Group,keysToWorkWith)){
+					TaskFinder task = new TaskFinder(allFilesGroup, new KeysFound (Group, keysToWorkWith),pool, position+1);
+					pool.SubmitFindingTask(task);
+				}
+				
+			}
+		}
+		
+		
+		
+		
+		else {
+			System.out.println(Group.keys);
 		}
 	}
 }

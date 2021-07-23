@@ -8,23 +8,29 @@ import java.util.ArrayList;
 import objetsconversations.*;
 
 public class Minimize {
-	public static GroupOfKeys minimize(GroupOfKeys group) {
-		ArrayList<KeysFound> allKeys = new ArrayList<KeysFound>(group.groupOfKeysFound);
+	public static void minimize(GroupOfKeysInOneFile file, GroupOfAllFiles group) {
+		ArrayList<KeysFound> allKeys = new ArrayList<KeysFound>(file.groupOfKeysFound);
 		Collections.sort(allKeys, KeysFound.ComparatorFirstString);
 		ArrayList<ArrayList<Set<String>>> alreadyChoosed= new ArrayList<ArrayList<Set<String>>>();
 		ArrayList<KeysFound> minimizedKeys = new ArrayList<KeysFound>();
 		if (!allKeys.isEmpty()) {
 			for(int i=0; i<allKeys.size(); i++) {
 				KeysFound setOfKeys=allKeys.get(i);
-				if(!alreadyChoosed.containsAll(setOfKeys.keys)) {
+				boolean isHere=false;
+				for (ArrayList<Set<String>> toVerified : alreadyChoosed) {
+					if(toVerified.containsAll(setOfKeys.keys)) {
+						isHere=true;
+					}
+				}
+				if (!isHere) {
 					alreadyChoosed.add(setOfKeys.keys);
 					minimizedKeys.add(setOfKeys);
 				}
 				
 			}
 		}
-		GroupOfKeys mimizedGroup=new GroupOfKeys(minimizedKeys);
-		return mimizedGroup;
+		GroupOfKeysInOneFile minimizedGroup=new GroupOfKeysInOneFile(minimizedKeys);
+		group.groupOfAllFiles.add(minimizedGroup);
 		//écrire dans un fichier le résultat
 	}
 }

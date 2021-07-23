@@ -1,13 +1,13 @@
 package keyDecision;
 import java.util.ArrayList;
 import java.util.Comparator;
-public class GroupOfKeys {
+public class GroupOfKeysInOneFile {
 	public ArrayList<KeysFound> groupOfKeysFound;
-	public GroupOfKeys() {
+	public GroupOfKeysInOneFile() {
 		groupOfKeysFound=new ArrayList<KeysFound>();
 		
 	}
-	public GroupOfKeys(ArrayList<KeysFound> afterMinimize) {
+	public GroupOfKeysInOneFile(ArrayList<KeysFound> afterMinimize) {
 		groupOfKeysFound=afterMinimize;
 		
 	}

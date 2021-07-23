@@ -2,9 +2,14 @@ package keyDecision;
 import java.util.*;
 
 public class VerificationUnauthorizedKeys {
-	public static boolean VerificationUnauthorizedKeysProcedure(ArrayList<Set<String>> keysInOneFile, Set<Set<String>> listUnauthorizedKeysNow) {
-		for (Set<String> verificationOfAKey : keysInOneFile) {
-			if(listUnauthorizedKeysNow.contains(verificationOfAKey)){
+	public static boolean VerificationUnauthorizedKeysProcedure(KeysFound toVerifyFirst, KeysFound toVerifySecond) {
+		for (Set<String> verificationOfAKey : toVerifyFirst.keys) {
+			if(toVerifySecond.unauthorizedKeys.contains(verificationOfAKey)){
+				return false;
+			}
+		}
+		for (Set<String> verificationOfAKey : toVerifySecond.keys) {
+			if(toVerifyFirst.unauthorizedKeys.contains(verificationOfAKey)){
 				return false;
 			}
 		}

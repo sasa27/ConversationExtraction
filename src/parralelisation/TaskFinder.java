@@ -1,31 +1,30 @@
 package parralelisation;
 import split.Trace;
+
 import split.Regex;
 
 import java.util.Set;
 
-import keyDecision.GroupOfKeys;
+import keyDecision.*;
 import main.Save;
 import metrique.Metric;
 import objetsconversations.ConversationSet;
 public class TaskFinder implements Runnable{
-	public GroupOfKeys Group;
-	public Set<Set<String>> ListKeyNow;
-	public Set<Set<String>> listUnauthorizedKeysNow;
+	public KeysFound groupNow;
 	public int position;
 	public ThreadExecutorSimpleBlockingQueue pool;
-	public TaskFinder(GroupOfKeys Group,Set<Set<String>> ListKeyNow,Set<Set<String>> listUnauthorizedKeysNow, ThreadExecutorSimpleBlockingQueue pool, int position) {
-		this.Group=Group;
-		this.ListKeyNow=ListKeyNow;
-		this.listUnauthorizedKeysNow=listUnauthorizedKeysNow;
-		this.position=position;
+	public GroupOfAllFiles allFilesGroup;
+	public TaskFinder(GroupOfAllFiles allFilesGroup,KeysFound groupNow, ThreadExecutorSimpleBlockingQueue pool, int position) {
+		this.groupNow=groupNow;
 		this.pool=pool;
+		this.position=position;
+		this.allFilesGroup=allFilesGroup;
 	}
 	
     
     @Override
     public void run() {
-         keyDecision.KeyFinder.findingKeys(this.Group, this.ListKeyNow, this.listUnauthorizedKeysNow,this.pool, this.position);
+         keyDecision.KeyFinder.findingKeys(this.allFilesGroup,this.groupNow,this.pool, this.position);
         
     }    
 }

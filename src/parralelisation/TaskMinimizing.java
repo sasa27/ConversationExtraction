@@ -2,17 +2,20 @@ package parralelisation;
 
 import java.util.Set;
 
-import keyDecision.GroupOfKeys;
+import keyDecision.*;
 
 public class TaskMinimizing implements Runnable{
-	public GroupOfKeys groupOfFoundKeys;
-	public TaskMinimizing(GroupOfKeys Group) {
-		this.groupOfFoundKeys=Group;
+	public GroupOfKeysInOneFile groupOfFoundKeys;
+	public GroupOfAllFiles groupOfAllMinilized;
+	public TaskMinimizing(GroupOfKeysInOneFile file, GroupOfAllFiles group) {
+		this.groupOfFoundKeys=file;
+		this.groupOfAllMinilized=group;
+		
 	}
 	
     
     @Override
     public void run() {
-         keyDecision.Minimize.minimize(this.groupOfFoundKeys);
+         keyDecision.Minimize.minimize(this.groupOfFoundKeys, this.groupOfAllMinilized);
     }
 }

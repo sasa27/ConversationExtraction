@@ -10,8 +10,11 @@ import objetsconversations.*;
 public class MainDecision {
 	public void main(){
 		ThreadExecutorSimpleBlockingQueue pool = new ThreadExecutorSimpleBlockingQueue();
-		GroupOfKeys CreatedGroup = new GroupOfKeys();
-		pool.SubmitMinimizingTask(new TaskMinimizing(CreatedGroup));
+		GroupOfAllFiles toUse = new GroupOfAllFiles();
+		GroupOfAllFiles createdGroup = new GroupOfAllFiles();
+		for (GroupOfKeysInOneFile file : toUse.groupOfAllFiles) {
+			pool.SubmitMinimizingTask(new TaskMinimizing(file, createdGroup));
+		}
 		while (!pool.threadpool.isTerminated()) {
         	try {
         	    Thread.sleep(1000);
@@ -20,9 +23,9 @@ public class MainDecision {
         	}
         }
 		ThreadExecutorSimpleBlockingQueue newPool = new ThreadExecutorSimpleBlockingQueue();
-		firstS=CreatedGroup.getS(0);
-		for( Set<String> firstKeys: firstS.Keys) {
-			newPool.SubmitFindingTask(S);
+		GroupOfKeysInOneFile firstS=createdGroup.groupOfAllFiles.get(0);
+		for(KeysFound firstKeys: firstS.groupOfKeysFound) {
+			newPool.SubmitFindingTask(new TaskFinder(createdGroup, firstKeys, newPool ,0));
 		}
 		while (!newPool.threadpool.isTerminated()) {
         	try {
