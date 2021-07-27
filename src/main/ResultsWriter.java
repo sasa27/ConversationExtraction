@@ -77,7 +77,7 @@ public class ResultsWriter {
 				File dirOutputAssignments = new File(sauv.file+"/output"+sauv.number+"/convSetnumber"+trace.compteur+"/assignments.txt");
 				//System.out.println(ensemble.getAllKeys());
 			    SavingResults.writeArrayListInFile(ensemble.getAllKeys(), dirArray);
-			    Set<Set<String>> keys = SavingResults.loadArrayListInFile(dirArray);
+			    ArrayList<Set<String>> keys = SavingResults.loadArrayListInFile(dirArray);
 			    SavingResults.writeUnauthorizedArrayListInFile(ensemble,keys,dirOutputAssignments);
 			  //  threadpool.threadpool.shutdownNow();
 			    }

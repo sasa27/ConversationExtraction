@@ -116,7 +116,7 @@ public class ConversationSet implements Cloneable {
 		return allKeys;
 	}
 	
-	public static Set<String> getAllAssignments(ConversationSet convSet, Set<Set<String>> allKeys){
+	public static Set<String> getAllAssignments(ConversationSet convSet, ArrayList<Set<String>> allKeys){
 		Set<String> allAssignments=new HashSet<String>();
 		for(Conversation conv : convSet.getConversationSet()) {
 			ArrayList<String> Array=new ArrayList<String>(conv.assignments);

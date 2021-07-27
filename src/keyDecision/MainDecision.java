@@ -1,19 +1,32 @@
 package keyDecision;
+import java.io.File;
 import java.util.ArrayList;
 
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 
+import main.SavingResults;
 import parralelisation.*;
 import objetsconversations.*;
 
 public class MainDecision {
 	public void main(){
 		GroupOfAllFiles allFiles =new GroupOfAllFiles();
-		testFirstFile=;
-		testSecondFile=;
-		for 
 		GroupOfKeysInOneFile firstFile= new GroupOfKeysInOneFile();
+		KeysFound aFile = new KeysFound();
+		File folder = new File("../../RESULTS/Log2/output0/convSetnumber1");
+		File[] listOfFiles = folder.listFiles();
+		for (File file : listOfFiles) {
+		    if (file.getName().contains("ents.txt")) {
+		    	aFile.unauthorizedKeys = SavingResults.loadUnauthorizedArrayListInFile(file);
+		    }
+		    else {
+		    	aFile.keys = SavingResults.loadArrayListInFile(file);
+		    }
+		}
+		firstFile.groupOfKeysFound.add(aFile);
+		allFiles.groupOfAllFiles.add(firstFile);
+		System.out.println(allFiles);
 		ThreadExecutorSimpleBlockingQueue pool = new ThreadExecutorSimpleBlockingQueue();
 		
 		

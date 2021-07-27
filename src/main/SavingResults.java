@@ -8,7 +8,7 @@ import objetsconversations.ConversationSet;
 public class SavingResults {
 	public static void writeArrayListInFile(ArrayList<Set<ArrayList<String>>> menuArray, File dir){
 		try {
-			Set<Set<String>> newSet= new HashSet<Set<String>>();
+			ArrayList<Set<String>> newSet= new ArrayList<Set<String>>();
 			for(Set<ArrayList<String>> separationOfConvSet : menuArray)
 				for (ArrayList<String> fromAssignmentToKey : separationOfConvSet) {
 					Set<String> newSetString= new HashSet<String>();
@@ -28,11 +28,11 @@ public class SavingResults {
 	}
 	
 	
-	public static Set<Set<String>> loadArrayListInFile(File file){
+	public static ArrayList<Set<String>> loadArrayListInFile(File file){
 		try {
 		FileInputStream fis = new FileInputStream(file);
 		ObjectInputStream ois = new ObjectInputStream(fis);
-		Set<Set<String>> clubs = (Set<Set<String>>) ois.readObject();
+		ArrayList<Set<String>> clubs = (ArrayList<Set<String>>) ois.readObject();
 		ois.close();
 		return clubs;
 		}
@@ -42,7 +42,7 @@ public class SavingResults {
 		return null;
 	}
 	
-	public static void writeUnauthorizedArrayListInFile(ConversationSet convSet, Set<Set<String>> keysOfTheSet, File dir){
+	public static void writeUnauthorizedArrayListInFile(ConversationSet convSet, ArrayList<Set<String>> keysOfTheSet, File dir){
 		try {
 			Set<String> newSetString= ConversationSet.getAllAssignments(convSet, keysOfTheSet);
 		    FileOutputStream fos = new FileOutputStream(dir);
