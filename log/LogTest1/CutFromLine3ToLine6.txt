@@ -1,3 +1,0 @@
-a3(id=1,prot=HTTP)
-a4(id=2,prot=HTTP)
-a5(id=2,prot=HTTP)

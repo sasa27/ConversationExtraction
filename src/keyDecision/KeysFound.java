@@ -6,22 +6,21 @@ import objetsconversations.Conversation;
 import objetsconversations.Event;
 public class KeysFound {
 	public ArrayList<Set<String>> keys;
-	public ArrayList<Set<String>> unauthorizedKeys;
+	public Set<String> unauthorizedKeys;
 	public KeysFound() {
 		keys= new ArrayList<Set<String>>();
-		unauthorizedKeys=new ArrayList<Set<String>>();
+		unauthorizedKeys=new HashSet<String>();
 	}
 	
 	public KeysFound(KeysFound founded,KeysFound newFounded){
 		  keys= new ArrayList<Set<String>>(founded.keys);
 		  for (Set<String> newKeys: newFounded.keys) {
-			  if(!keys.contains(newKeys)){
-				  keys.add(newKeys);
-			  }
+				 keys.add(newKeys);
+			  
 		  }
 		 
-		  unauthorizedKeys=new ArrayList<Set<String>>(founded.unauthorizedKeys);
-		  for (Set<String> newKeys: newFounded.unauthorizedKeys) {
+		  unauthorizedKeys=new HashSet<String>(founded.unauthorizedKeys);
+		  for (String newKeys: newFounded.unauthorizedKeys) {
 			  if(!unauthorizedKeys.contains(newKeys)){
 				  unauthorizedKeys.add(newKeys);
 			  }
@@ -30,12 +29,9 @@ public class KeysFound {
 	
 	public KeysFound(KeysFound founded){
 		  keys= new ArrayList<Set<String>>(founded.keys);
-		  unauthorizedKeys=new ArrayList<Set<String>>(founded.unauthorizedKeys);
+		  unauthorizedKeys=new HashSet<String>(founded.unauthorizedKeys);
 	  }
 	
-	public Set<String> unauthorizedKeysFind(int thisPlace){
-		return this.unauthorizedKeys.get(thisPlace);
-	}
 	
 	public static Comparator<KeysFound> ComparatorFirstString = new Comparator<KeysFound>() {
 	      

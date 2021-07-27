@@ -2,6 +2,7 @@ package objetsconversations;
 import java.io.File;
 
 
+
 import java.util.*;
 
 import metrique.Metric;
@@ -105,6 +106,34 @@ public class ConversationSet implements Cloneable {
 			renvoi.add(rajout);
 		}
 		return renvoi;
+	}
+	
+	public ArrayList<Set<ArrayList<String>>> getAllKeys(){
+		ArrayList<Set<ArrayList<String>>> allKeys=new ArrayList<Set<ArrayList<String>>>();
+		for(Conversation conv : this.ConvSet) {
+			allKeys.add(new HashSet<ArrayList<String>>(conv.getChoosedKeys()));
+		}
+		return allKeys;
+	}
+	
+	public static Set<String> getAllAssignments(ConversationSet convSet, Set<Set<String>> allKeys){
+		Set<String> allAssignments=new HashSet<String>();
+		for(Conversation conv : convSet.getConversationSet()) {
+			ArrayList<String> Array=new ArrayList<String>(conv.assignments);
+			for(String assignInConv : Array) {
+				String assignKey = assignInConv.split("=")[0];
+				boolean tryAllKeys=false;
+				for (Set<String> keyOneByOne : allKeys) {
+					if (keyOneByOne.contains(assignKey)) {
+						tryAllKeys=true;
+					}
+				}
+				if(!tryAllKeys) {
+					allAssignments.add(assignKey);
+				}
+			}
+		}
+		return allAssignments;
 	}
 	
 	

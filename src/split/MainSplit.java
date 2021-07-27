@@ -77,8 +77,9 @@ public class MainSplit {
     	} catch (InterruptedException ie) {
     		System.err.println("erreur sleep");
     	}
-        while (!threadpool.threadpool.isTerminated()) {
+        while (!(threadpool.getqueue().size()==0)) {
         	try {
+        		//System.out.println(threadpool.getqueue());
         	    Thread.sleep(1000);
         	} catch (InterruptedException ie) {
         		System.err.println("erreur sleep");

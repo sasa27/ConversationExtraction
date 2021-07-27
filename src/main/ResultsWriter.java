@@ -27,9 +27,13 @@ public class ResultsWriter {
 		
 		
 		trace.compteur+=1;
-		File dossier=new File(sauv.file+"/resultat"+sauv.number);
-		if ((!dossier.exists()) || (!dossier.isDirectory())){
-			dossier.mkdir();
+		File directoryFile=new File(sauv.file+"/resultat"+sauv.number);
+		File directoryOutput=new File(sauv.file+"/output"+sauv.number);
+		if ((!directoryFile.exists()) || (!directoryFile.isDirectory())){
+			directoryFile.mkdir();
+		}
+		if ((!directoryOutput.exists()) || (!directoryOutput.isDirectory())){
+			directoryOutput.mkdir();
 		}
 			File dir = new File(sauv.file+"/resultat"+sauv.number+"/trace"+trace.compteur+".txt");
 				Set<String> totalKeys = new HashSet<String>();
@@ -62,6 +66,19 @@ public class ResultsWriter {
 			    BufferedWriter bw = new BufferedWriter(fw);
 			    bw.write(writingInFile);
 			    bw.close();
+			    if ((!directoryFile.exists()) || (!directoryFile.isDirectory())){
+					directoryFile.mkdir();
+				}
+			    File directoryFileOutput=new File(sauv.file+"/output"+sauv.number+"/convSetnumber"+trace.compteur);
+				if ((!directoryFileOutput.exists()) || (!directoryFileOutput.isDirectory())){
+					directoryFileOutput.mkdir();
+				}
+				File dirArray = new File(sauv.file+"/output"+sauv.number+"/convSetnumber"+trace.compteur+"/cles.txt");
+				File dirOutputAssignments = new File(sauv.file+"/output"+sauv.number+"/convSetnumber"+trace.compteur+"/assignments.txt");
+				//System.out.println(ensemble.getAllKeys());
+			    SavingResults.writeArrayListInFile(ensemble.getAllKeys(), dirArray);
+			    Set<Set<String>> keys = SavingResults.loadArrayListInFile(dirArray);
+			    SavingResults.writeUnauthorizedArrayListInFile(ensemble,keys,dirOutputAssignments);
 			  //  threadpool.threadpool.shutdownNow();
 			    }
 			    catch(Exception e) {

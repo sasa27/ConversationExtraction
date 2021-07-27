@@ -1,0 +1,45 @@
+Used Keys in the ConversationSet : 
+[session=7]
+[session=6]
+[response=OK]
+[group=01]
+[session=11]
+[status=0300]
+[session=9]
+[session=10]
+[session=8]
+
+ 
+ 
+ Conversations found with this set of keys : 
+ 
+conversation number 0
+Aug 18, 2019 14:54:14.667076000 CEST;Host=192.168.43.76;Dest=192.168.43.202;Protocol=UDP;64516 -> 5987 Len=22;8000000011de00005d00310000080402000000&group=01&switchcmd=Off;session=6
+Aug 18, 2019 14:54:14.677076000 Host=192.168.43.202;Dest=192.168.43.202;type=switch&switchcmd=Off;session=6
+Aug 18, 2019 14:54:14.697018000 CEST;Host=192.168.43.202;Dest=192.168.43.76;Protocol=UDP;5987 -> 64516 Len=8;88000000&status=0300&03&response=00;session=6
+conversation number 1
+Aug 18, 2019 14:54:14.921279000 CEST;Host=192.168.43.76;Dest=192.168.43.203;Protocol=UDP;64516 -> 5987 Len=22;8000000011de00005e00310000080402000000&group=02&switchcmd=Off;session=7
+Aug 18, 2019 14:54:14.931279000 Host=192.168.43.203;Dest=192.168.43.203;type=switch&switchcmd=Off;session=7
+Aug 18, 2019 14:54:14.960645000 CEST;Host=192.168.43.203;Dest=192.168.43.76;Protocol=UDP;5987 -> 64516 Len=8;88000000&status=0300&03&response=00;session=7
+Aug 18, 2019 14:54:21.611071000 CEST;Host=192.168.43.202;Dest=192.168.43.76;Protocol=UDP;5987 -> 64516 Len=8;88000000&status=0300&03&response=00;session=10
+Aug 18, 2019 14:54:21.846831000 CEST;Host=192.168.43.76;Dest=192.168.43.203;Protocol=UDP;64516 -> 5987 Len=22;8000000011de00006000310000080401000000&group=02&switchcmd=On;session=10
+conversation number 2
+Aug 18, 2019 14:54:16.023984000 CEST;Host=192.168.43.102;Dest=192.168.43.76;Protocol=HTTP;Verb=GET Uri=/json.htm?type=command&param=switchlight&idx=10&switchcmd=Off&rssi=9 HTTP/1.1 ;;session=8
+Aug 18, 2019 14:54:16.060287000 CEST;Host=192.168.43.76;Dest=192.168.43.102;Protocol=HTTP;HTTP/1.1 status=200 response=OK  (type=application/json);;session=8
+Aug 18, 2019 14:54:21.559829000 CEST;Host=192.168.43.76;Dest=192.168.43.102;Protocol=HTTP;HTTP/1.1 status=200 response=OK  (type=application/json);;session=10
+Aug 18, 2019 14:54:21.587818000 CEST;Host=192.168.43.76;Dest=192.168.43.202;Protocol=UDP;64516 -> 5987 Len=22;8000000011de00005f00310000080401000000&group=01&switchcmd=On;session=10
+Aug 18, 2019 14:54:22.587582000 CEST;Host=192.168.43.76;Dest=192.168.43.202;Protocol=UDP;64516 -> 5987 Len=22;8000000011de00006100310000080402000000&group=01&switchcmd=Off;session=11
+Aug 18, 2019 14:54:22.597582000 Host=192.168.43.202;Dest=192.168.43.202;type=switch&switchcmd=Off;session=11
+conversation number 3
+Aug 18, 2019 14:54:20.134926000 CEST;Host=192.168.43.101;Dest=192.168.43.76;Protocol=HTTP;Verb=GET Uri=/json.htm?type=command&param=udevice&idx=1&nvalue=0&svalue=26.00;59.00;3&rssi=7 HTTP/1.1 ;;session=9
+Aug 18, 2019 14:54:20.153039000 CEST;Host=192.168.43.76;Dest=192.168.43.101;Protocol=HTTP;HTTP/1.1 status=200 response=OK  (type=application/json);;session=9
+conversation number 4
+Aug 18, 2019 14:54:21.522629000 CEST;Host=192.168.43.102;Dest=192.168.43.76;Protocol=HTTP;Verb=GET Uri=/json.htm?type=command&param=switchlight&idx=10&switchcmd=On&rssi=10 HTTP/1.1 ;;session=10
+Aug 18, 2019 14:54:21.597818000 Host=192.168.43.202;Dest=192.168.43.202;type=switch&switchcmd=On;session=10
+Aug 18, 2019 14:54:21.856831000 Host=192.168.43.203;Dest=192.168.43.203;type=switch&switchcmd=On;session=10
+Aug 18, 2019 14:54:21.883420000 CEST;Host=192.168.43.203;Dest=192.168.43.76;Protocol=UDP;5987 -> 64516 Len=8;88000000&status=0300&03&response=00;session=10
+
+ 
+ 
+ 
+0.9583333

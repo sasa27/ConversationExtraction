@@ -9,7 +9,14 @@ import objetsconversations.*;
 
 public class MainDecision {
 	public void main(){
+		GroupOfAllFiles allFiles =new GroupOfAllFiles();
+		testFirstFile=;
+		testSecondFile=;
+		for 
+		GroupOfKeysInOneFile firstFile= new GroupOfKeysInOneFile();
 		ThreadExecutorSimpleBlockingQueue pool = new ThreadExecutorSimpleBlockingQueue();
+		
+		
 		GroupOfAllFiles toUse = new GroupOfAllFiles();
 		GroupOfAllFiles createdGroup = new GroupOfAllFiles();
 		for (GroupOfKeysInOneFile file : toUse.groupOfAllFiles) {

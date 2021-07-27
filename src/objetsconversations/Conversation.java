@@ -11,7 +11,7 @@ public class Conversation{
   public ArrayList<ArrayList<String>> choosedKeys;
 
   public ArrayList<String> assignments;
-  public ArrayList<String> cle;
+  public ArrayList<String> keys;
 
   public int nbRequest;
   public int nbResponse;
@@ -26,7 +26,7 @@ public class Conversation{
       nbResponse=0;
       assignments= new ArrayList<String>();
       
-      cle=new ArrayList<String>();;
+      keys=new ArrayList<String>();;
   }
 
   public Conversation(Conversation conversation){
@@ -46,12 +46,12 @@ public class Conversation{
       for (String assi : conversation.assignments) {
     	  assignments.add(assi);
       }
-      cle=new ArrayList<String>();;
+      keys=new ArrayList<String>();;
       
   }
   
   
-  public Conversation(Conversation conversation, ArrayList<String> nouvellescles, Event reqorrep){
+  public Conversation(Conversation conversation, ArrayList<String> newKeys, Event reqorrep){
 	  conv= new ArrayList<Event>();
       for (Event ev : conversation.conv) {
     	  conv.add(ev);
@@ -86,8 +86,8 @@ public class Conversation{
     	  nbResponse=conversation.getRep();
       }
       }
-      cle=nouvellescles;
-      choosedKeys.add(nouvellescles);
+      keys=newKeys;
+      choosedKeys.add(newKeys);
       
       conv.add(reqorrep);
   }
@@ -105,7 +105,7 @@ public class Conversation{
 
     nbRequest=0;
     nbResponse=0;
-    cle=new ArrayList<String>();
+    keys=new ArrayList<String>();
     conv.add(event);
     if (event.isReq()) {
 		nbRequest++;
