@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-
+import keyDecision.*;
 import objetsconversations.ConversationSet;
 import objetsconversations.Event;
 import parralelisation.*;
@@ -77,7 +77,7 @@ public class MainSplit {
     	} catch (InterruptedException ie) {
     		System.err.println("erreur sleep");
     	}
-        while (!threadpool.threadpool.isTerminated()) {
+        while (!(threadpool.getqueue().size()==0)) {
         	try {
         	    Thread.sleep(1000);
         	} catch (InterruptedException ie) {
@@ -89,6 +89,8 @@ public class MainSplit {
         System.out.println(threadpool.threadpool);
         System.out.println(threadpool.numberThread);
         System.out.println(TimeTask2-TimeTask1);
+        
+        MainDecision.main();
 	}
 
 }
