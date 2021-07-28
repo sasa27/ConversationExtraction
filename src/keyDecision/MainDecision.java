@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 
+import main.ResultsWriter;
 import main.SavingResults;
 import parralelisation.*;
 import objetsconversations.*;
@@ -15,11 +16,11 @@ public class MainDecision {
 	
 	public static void main(){
 		GroupOfAllFiles allFiles =new GroupOfAllFiles();
-		
-		KeysFound aFile = new KeysFound();
 		final File folder = new File("RESULTS");
 		ArrayList<File> listOfFiles = listFilesForFolderFromResult(folder);
-		listFilesForFolder(folder,allFiles);
+		for(File aFile : listOfFiles) {
+			listFilesForFolder(aFile,allFiles);
+		}
 
 		ThreadExecutorSimpleBlockingQueue pool = new ThreadExecutorSimpleBlockingQueue();
 		
@@ -47,13 +48,21 @@ public class MainDecision {
 			
 			newPool.SubmitFindingTask(new TaskFinder(group, firstKeys, newPool ,0));
 		}
-		while (!newPool.threadpool.isTerminated()) {
+		try {
+    	    Thread.sleep(5000);
+    	} catch (InterruptedException ie) {
+    		System.err.println("erreur sleep");
+    	}
+		while (!(pool.getqueue().size()==0)) {
         	try {
         	    Thread.sleep(1000);
         	} catch (InterruptedException ie) {
         		System.err.println("erreur sleep");
         	}
         }
+		
+		ResultsWriter.writeAllPossibleKeys(newPool.result);
+		newPool.threadpool.shutdown();
 	}
 	
 	
@@ -66,9 +75,10 @@ public class MainDecision {
 	}
 	
 	public static void listFilesForFolder(final File folder, GroupOfAllFiles AllFiles) {
+		GroupOfKeysInOneFile SecondFile= new GroupOfKeysInOneFile();
 	    for (final File fileEntry : folder.listFiles()) {
-	        if ((fileEntry.isDirectory()) &&(!folder.getName().contains("result"))) {
-	        	GroupOfKeysInOneFile SecondFile= new GroupOfKeysInOneFile();
+	    	
+	        if ((fileEntry.isDirectory()) &&(!fileEntry.getName().contains("result"))) {
 	        	for(File outp : fileEntry.listFiles()) {
 	        		File[] listOfFiles2 = outp.listFiles();
 	        		KeysFound aSecondFile = new KeysFound();
@@ -80,11 +90,13 @@ public class MainDecision {
 	        		    	aSecondFile.keys = SavingResults.loadArrayListInFile(file);
 	        		    }
 	        		}
-	        		SecondFile.groupOfKeysFound.add(aSecondFile);
+	        		SecondFile.groupOfKeysFound.add(new KeysFound(aSecondFile));
 	        	}
 	        
 	        }
+	       
 	    }
+	    AllFiles.groupOfAllFiles.add(new GroupOfKeysInOneFile(SecondFile));
 	}
 	
 	public void createKeysFound(File file, KeysFound aFile){

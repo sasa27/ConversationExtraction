@@ -4,6 +4,8 @@ import java.io.File;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import keyDecision.MainDecision;
 //import split.*;
 /**
  * 
@@ -21,7 +23,9 @@ public class Main {
 	
 
 	public static void main(String[] args) {
+		
 		boolean useRegex = Arrays.stream(args).anyMatch("-r"::equals);
+		System.out.println("pb1");
 		try {
 		    FullOptions.setOptions(args, useRegex);
 		} catch (Exception e) {
@@ -29,46 +33,34 @@ public class Main {
 		    System.exit(3);
 		}
 		
-		
+		System.out.println("pb");
 		createDir();
 		String tmp = output ;
 		boolean firstResult = Arrays.stream(args).anyMatch("-f"::equals);
 		//Split the log and detect the sessions and  dependencies
 		Save count=new Save(new File(tmp));
-		if(useRegex){
-			String[] argsSplit = {"-i", log, "-r", regex, "-o", tmp, mode};
-			split.MainSplit.main(argsSplit, count, firstResult, useRegex);
+		File folder = new File("FileCutted/");
+		for (final File fileEntry : folder.listFiles()) {
+			
+			if(useRegex){
+				String[] argsSplit = {"-r", regex, "-o", tmp, mode};
+				split.MainSplit.main(argsSplit, count, firstResult, useRegex,fileEntry);
+			}
+			else {
+				String[] argsSplit = {log, "-o", tmp, mode};
+				split.MainSplit.main(argsSplit, count, firstResult, useRegex,fileEntry);
+			}
+			final long timebuildingTraces1 = System.currentTimeMillis();
 		}
-		else {
-			String[] argsSplit = {"-i", log, "-o", tmp, mode};
-			split.MainSplit.main(argsSplit, count, firstResult, useRegex);
-		}
-		final long timebuildingTraces1 = System.currentTimeMillis();
-		
+		MainDecision.main();
 		
 		
 		//pour couper des fichiers
 		
 		//coupeurfichiertest.coupeurfichier(new File(log));
+
 		
-		
-		/*for (int i=0; i<20; i++) {
-			
-			log="logentrainementlog/log6/trace" + i +".txt";
-			String[] argsSplit = {"-i", log, "-r", regex, "-o", tmp, mode};
-			split.MainSplit.main(argsSplit, compt);
-			
-			compt.retourglobal();
-			compt.traceglobal();
-			compt.compteurtotal=new ArrayList<ArrayList<String>>();
-			compte.addnombre();
-			compte.setnbConv(0);
-		}*/
-		
-		final long timebuildingTraces2 = System.currentTimeMillis();
-		System.out.println("oui");
-		System.out.println(timebuildingTraces2-timebuildingTraces1);
-		System.out.println("oui");
+
 		return;
 	}
 

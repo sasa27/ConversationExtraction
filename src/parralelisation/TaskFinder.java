@@ -3,6 +3,7 @@ import split.Trace;
 
 import split.Regex;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import keyDecision.*;
@@ -19,13 +20,13 @@ public class TaskFinder implements Runnable{
 		this.pool=pool2;
 		this.position=position;
 		this.allFilesGroup=allFilesGroup2;
+		
 	}
 	
     
     @Override
     public void run() {
-    	System.out.println(this.groupNow);
-         keyDecision.KeyFinder.findingKeys(this.allFilesGroup,this.groupNow,this.pool, this.position);
+         keyDecision.KeyFinder.findingKeys(this.allFilesGroup,this.groupNow,this.pool, this.position,this.pool.result);
         
     }    
 }

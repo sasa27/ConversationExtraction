@@ -18,7 +18,7 @@ public class MapperOptions {
 	    try {
 		    final CommandLine line = parser.parse(options, args);
 		    
-		    MainSplit.log = line.getOptionValue("input");
+		   
 		    if (reg) {
 		    	 MainSplit.regex = new Regex(line.getOptionValue("reg"));
 		    }
@@ -56,13 +56,6 @@ public class MapperOptions {
 	
 	private static Options configParameters(boolean reg) {
 		final Options options = new Options();
-		final Option logFileOption = Option.builder("i")
-				.longOpt("input")
-				.desc("log file to analyse")
-				.hasArg(true)
-				.argName("input")
-				.required(true)
-				.build();
 		if (reg) {
 			final Option regexOption = Option.builder("r")
 					.longOpt("reg")
@@ -98,7 +91,6 @@ public class MapperOptions {
 	
 	    
 	
-	    options.addOption(logFileOption);
 	    
 	    options.addOption(timerFileOption);
 	    options.addOption(outputOption);

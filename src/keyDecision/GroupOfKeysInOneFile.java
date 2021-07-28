@@ -11,6 +11,10 @@ public class GroupOfKeysInOneFile {
 		groupOfKeysFound=afterMinimize;
 		
 	}
+	public GroupOfKeysInOneFile(GroupOfKeysInOneFile afterMinimize) {
+		groupOfKeysFound=afterMinimize.groupOfKeysFound;
+		
+	}
 	public KeysFound getgroupOfKeys(int position) {
 		return this.groupOfKeysFound.get(position);
 	}
