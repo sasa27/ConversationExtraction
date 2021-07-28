@@ -6,8 +6,8 @@ import keyDecision.*;
 
 public class TaskMinimizing implements Runnable{
 	public GroupOfKeysInOneFile groupOfFoundKeys;
-	public GroupOfAllFiles groupOfAllMinilized;
-	public TaskMinimizing(GroupOfKeysInOneFile file, GroupOfAllFiles group) {
+	public GroupOfAllFilesMinimized groupOfAllMinilized;
+	public TaskMinimizing(GroupOfKeysInOneFile file, GroupOfAllFilesMinimized group) {
 		this.groupOfFoundKeys=file;
 		this.groupOfAllMinilized=group;
 		

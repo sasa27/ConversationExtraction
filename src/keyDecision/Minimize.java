@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import objetsconversations.*;
 
 public class Minimize {
-	public static void minimize(GroupOfKeysInOneFile file, GroupOfAllFiles group) {
+	public static void minimize(GroupOfKeysInOneFile file, GroupOfAllFilesMinimized group) {
 		ArrayList<KeysFound> allKeys = new ArrayList<KeysFound>(file.groupOfKeysFound);
 		Collections.sort(allKeys, KeysFound.ComparatorFirstString);
 		ArrayList<ArrayList<Set<String>>> alreadyChoosed= new ArrayList<ArrayList<Set<String>>>();

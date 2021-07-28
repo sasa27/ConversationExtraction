@@ -34,10 +34,7 @@ public class ThreadExecutorSimpleBlockingQueue {
     public void shut() {
     	this.threadpool.shutdown();
     }
-    
-    public void SubmitFindingTask(TaskFinder task) {
-        this.threadpool.submit(task);
-    }
+
     public void SubmitMinimizingTask(TaskMinimizing task) {
         this.threadpool.submit(task);
     }

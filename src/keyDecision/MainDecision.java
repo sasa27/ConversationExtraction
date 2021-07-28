@@ -10,44 +10,29 @@ import parralelisation.*;
 import objetsconversations.*;
 
 public class MainDecision {
+	public GroupOfAllFiles allFiles;
+	public GroupOfAllFiles createdGroup;
+	
 	public static void main(){
 		GroupOfAllFiles allFiles =new GroupOfAllFiles();
-		GroupOfKeysInOneFile firstFile= new GroupOfKeysInOneFile();
-		KeysFound aFile = new KeysFound();
-		File folder = new File("RESULTS/log2/output0/convSetnumber1");
-		File[] listOfFiles = folder.listFiles();
-		for (File file : listOfFiles) {
-		    if (file.getName().contains("ents.txt")) {
-		    	aFile.unauthorizedKeys = SavingResults.loadUnauthorizedArrayListInFile(file);
-		    }
-		    else {
-		    	aFile.keys = SavingResults.loadArrayListInFile(file);
-		    }
-		}
 		
-		GroupOfKeysInOneFile SecondFile= new GroupOfKeysInOneFile();
-		KeysFound aSecondFile = new KeysFound();
-		File folder2 = new File("RESULTS/log21/output0/convSetnumber1");
-		File[] listOfFiles2 = folder2.listFiles();
-		for (File file : listOfFiles2) {
-		    if (file.getName().contains("ents.txt")) {
-		    	aSecondFile.unauthorizedKeys = SavingResults.loadUnauthorizedArrayListInFile(file);
-		    }
-		    else {
-		    	aSecondFile.keys = SavingResults.loadArrayListInFile(file);
-		    }
-		}
-		firstFile.groupOfKeysFound.add(aSecondFile);
-		allFiles.groupOfAllFiles.add(SecondFile);
+		KeysFound aFile = new KeysFound();
+		final File folder = new File("RESULTS");
+		ArrayList<File> listOfFiles = listFilesForFolderFromResult(folder);
+		listFilesForFolder(folder,allFiles);
+
 		ThreadExecutorSimpleBlockingQueue pool = new ThreadExecutorSimpleBlockingQueue();
 		
-
-		GroupOfAllFiles createdGroup = new GroupOfAllFiles();
-		System.out.println("debug la");
-		for (GroupOfKeysInOneFile file : allFiles.groupOfAllFiles) {
-			pool.SubmitMinimizingTask(new TaskMinimizing(file, createdGroup));
-		}
 		
+		GroupOfAllFilesMinimized group = new GroupOfAllFilesMinimized();
+		for (GroupOfKeysInOneFile file : allFiles.groupOfAllFiles) {
+			pool.SubmitMinimizingTask(new TaskMinimizing(file, group));
+		}
+		try {
+    	    Thread.sleep(5000);
+    	} catch (InterruptedException ie) {
+    		System.err.println("erreur sleep");
+    	}
 		while (!(pool.getqueue().size()==0)) {
         	try {
         	    Thread.sleep(1000);
@@ -55,14 +40,12 @@ public class MainDecision {
         		System.err.println("erreur sleep");
         	}
         }
-		System.out.println(createdGroup);
-		System.out.println("ici");
-		ThreadExecutorSimpleBlockingQueue newPool = new ThreadExecutorSimpleBlockingQueue();
-		System.out.println(createdGroup.groupOfAllFiles.size());
-		GroupOfKeysInOneFile firstS=createdGroup.groupOfAllFiles.get(0);
-		
+		pool.threadpool.shutdown();
+		ThreadExecutorFinding newPool = new ThreadExecutorFinding();
+		GroupOfKeysInOneFile firstS=group.groupOfAllFiles.get(0);
 		for(KeysFound firstKeys: firstS.groupOfKeysFound) {
-			newPool.SubmitFindingTask(new TaskFinder(createdGroup, firstKeys, newPool ,0));
+			
+			newPool.SubmitFindingTask(new TaskFinder(group, firstKeys, newPool ,0));
 		}
 		while (!newPool.threadpool.isTerminated()) {
         	try {
@@ -72,4 +55,44 @@ public class MainDecision {
         	}
         }
 	}
+	
+	
+	public static ArrayList<File> listFilesForFolderFromResult(final File folder) {
+		ArrayList<File> listOfFiles= new ArrayList<File>();
+		for (final File fileEntry : folder.listFiles()) {
+			listOfFiles.add(fileEntry);
+		}
+		return listOfFiles;
+	}
+	
+	public static void listFilesForFolder(final File folder, GroupOfAllFiles AllFiles) {
+	    for (final File fileEntry : folder.listFiles()) {
+	        if ((fileEntry.isDirectory()) &&(!folder.getName().contains("result"))) {
+	        	GroupOfKeysInOneFile SecondFile= new GroupOfKeysInOneFile();
+	        	for(File outp : fileEntry.listFiles()) {
+	        		File[] listOfFiles2 = outp.listFiles();
+	        		KeysFound aSecondFile = new KeysFound();
+	        		for (File file : listOfFiles2) {
+	        		    if (file.getName().contains("ents.txt")) {
+	        		    	aSecondFile.unauthorizedKeys = SavingResults.loadUnauthorizedArrayListInFile(file);
+	        		    }
+	        		    else {
+	        		    	aSecondFile.keys = SavingResults.loadArrayListInFile(file);
+	        		    }
+	        		}
+	        		SecondFile.groupOfKeysFound.add(aSecondFile);
+	        	}
+	        
+	        }
+	    }
+	}
+	
+	public void createKeysFound(File file, KeysFound aFile){
+	    	if (file.getName().contains("ents.txt")) {
+	    		aFile.unauthorizedKeys = SavingResults.loadUnauthorizedArrayListInFile(file);
+	    	}
+	    	else {
+	    		aFile.keys = SavingResults.loadArrayListInFile(file);
+	    	}
+		}
 }

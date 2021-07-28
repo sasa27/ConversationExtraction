@@ -12,18 +12,19 @@ import objetsconversations.ConversationSet;
 public class TaskFinder implements Runnable{
 	public KeysFound groupNow;
 	public int position;
-	public ThreadExecutorSimpleBlockingQueue pool;
-	public GroupOfAllFiles allFilesGroup;
-	public TaskFinder(GroupOfAllFiles allFilesGroup,KeysFound groupNow, ThreadExecutorSimpleBlockingQueue pool, int position) {
+	public ThreadExecutorFinding pool;
+	public GroupOfAllFilesMinimized allFilesGroup;
+	public TaskFinder(GroupOfAllFilesMinimized allFilesGroup2,KeysFound groupNow, ThreadExecutorFinding pool2, int position) {
 		this.groupNow=groupNow;
-		this.pool=pool;
+		this.pool=pool2;
 		this.position=position;
-		this.allFilesGroup=allFilesGroup;
+		this.allFilesGroup=allFilesGroup2;
 	}
 	
     
     @Override
     public void run() {
+    	System.out.println(this.groupNow);
          keyDecision.KeyFinder.findingKeys(this.allFilesGroup,this.groupNow,this.pool, this.position);
         
     }    

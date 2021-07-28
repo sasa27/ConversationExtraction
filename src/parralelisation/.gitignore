@@ -6,3 +6,7 @@
 /TaskFinder.class
 /TaskMinimizing.class
 /ThreadExecutorSimpleBlockingQueue.class
+/MyFutureTaskMinimize.class
+/MyFutureTaskFinding.class
+/SimpleThreadPoolFinding.class
+/ThreadExecutorFinding.class

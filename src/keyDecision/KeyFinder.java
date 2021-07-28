@@ -4,9 +4,10 @@ import java.util.*;
 import objetsconversations.*;
 import parralelisation.*;
 public class KeyFinder {
-	public static void findingKeys(GroupOfAllFiles allFilesGroup, KeysFound Group , ThreadExecutorSimpleBlockingQueue pool, int position) {
-		
-		if(!(position==allFilesGroup.groupOfAllFiles.size())) {
+	public static void findingKeys(GroupOfAllFilesMinimized allFilesGroup, KeysFound Group , ThreadExecutorFinding pool, int position) {
+		System.out.println("par la ici");
+		System.out.println(position);
+		if(!(position+1==allFilesGroup.groupOfAllFiles.size())) {
 			GroupOfKeysInOneFile allInOneFile=allFilesGroup.groupOfAllFiles.get(position);
 			GroupOfKeysInOneFile newGroupWhenKeysInCommon=new GroupOfKeysInOneFile();
 			for(KeysFound keysToWorkWith: allInOneFile.groupOfKeysFound) {
@@ -30,7 +31,7 @@ public class KeyFinder {
 		
 		
 		else {
-			System.out.println(Group.keys);
+			System.out.println(new HashSet<Set<String>>(Group.keys));
 		}
 	}
 }
