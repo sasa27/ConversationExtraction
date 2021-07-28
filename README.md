@@ -9,6 +9,13 @@ Parallel algorithm for recovering conversations (sequences of correlated events 
 * RESULTS/ where the results are gonne be
 
 ## Usage
+You can run all the programm in once with the cutting, processing and finding the keys that works for all via buildcutFile.sh to build then cutFile.sh :
+
+  cutFile.sh <insert the path to the file> <number of cut you want> <How much lines in each cut> -r <regex> -o <output>
+
+the results will be in the repository RESULTS
+
+
 You can compile the program by running the script **build.sh**.
 
 Once compiled, you can run the method with the script **extractionWithWindows.sh** if you are using Windows or **extractionWithLinux.sh**:
