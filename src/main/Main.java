@@ -23,7 +23,7 @@ public class Main {
 	
 
 	public static void main(String[] args) {
-		
+		System.out.println("la");
 		boolean useRegex = Arrays.stream(args).anyMatch("-r"::equals);
 		System.out.println("pb1");
 		try {
@@ -34,25 +34,35 @@ public class Main {
 		}
 		
 		System.out.println("pb");
-		createDir();
-		String tmp = output ;
 		boolean firstResult = Arrays.stream(args).anyMatch("-f"::equals);
 		//Split the log and detect the sessions and  dependencies
-		Save count=new Save(new File(tmp));
+		int compteur= 1;
 		File folder = new File("FileCutted/");
-		for (final File fileEntry : folder.listFiles()) {
+		for (File fileEntry : folder.listFiles()) {
+			System.out.println( fileEntry);
+		}
+		
+		for (File fileEntry : folder.listFiles()) {
+			File tmp = new File("RESULTS/"+output + compteur);
+			if ((!tmp.exists()) || (!tmp.isDirectory())){
+				tmp.mkdir();
+			}
 			
+			System.out.println(tmp);
+			Save count=new Save(tmp);
 			if(useRegex){
-				String[] argsSplit = {"-r", regex, "-o", tmp, mode};
+				String[] argsSplit = {"-r", regex, "-o", tmp.getName(), mode};
 				split.MainSplit.main(argsSplit, count, firstResult, useRegex,fileEntry);
 			}
 			else {
-				String[] argsSplit = {log, "-o", tmp, mode};
+				String[] argsSplit = {log, "-o",  tmp.getName(), mode};
 				split.MainSplit.main(argsSplit, count, firstResult, useRegex,fileEntry);
 			}
 			final long timebuildingTraces1 = System.currentTimeMillis();
+			compteur++;
 		}
 		MainDecision.main();
+		
 		
 		
 		//pour couper des fichiers
@@ -67,8 +77,8 @@ public class Main {
 	/**
 	 *Create the directory that will contain the results
 	 **/
-	private static String createDir() {
-		String tmpName = null, fName = "RESULTS/" + output;
+	private static String createDir(String tmp) {
+		String tmpName = null, fName = "RESULTS/" + tmp;
 		int i = 1;
 		File x = new File(fName);
 		while(x.exists()) {

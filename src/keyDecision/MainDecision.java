@@ -90,7 +90,9 @@ public class MainDecision {
 	        		    	aSecondFile.keys = SavingResults.loadArrayListInFile(file);
 	        		    }
 	        		}
-	        		SecondFile.groupOfKeysFound.add(new KeysFound(aSecondFile));
+	        		if ((!aSecondFile.keys.isEmpty())&& (!aSecondFile.unauthorizedKeys.isEmpty())) {
+	        			SecondFile.groupOfKeysFound.add(new KeysFound(aSecondFile));
+	        		}
 	        	}
 	        
 	        }
