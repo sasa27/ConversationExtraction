@@ -13,6 +13,7 @@ You can run all the programm in once with the cutting, processing and finding th
 
   cutFile.sh <insert the path to the file> <number of cut you want> <How much lines in each cut> -r <regex> -o <output>
 
-the results will be in the repository RESULTS
+the results will be in the repository RESULTS with the name that you choosed with -o + a number saying which file it choosed and at the end
+there will be a fil named allpossiblekeys which is the file containing the set of keys that can be used for extracting from the file.
 
 
