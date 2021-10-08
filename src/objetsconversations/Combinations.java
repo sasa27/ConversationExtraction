@@ -8,7 +8,11 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 
 public class Combinations {
-
+	/**
+	* Create all combinations for the powersets of keys
+	* @param  params list of keys which are gonna get combined
+	* @return combinations all the powerset created
+	*/
 
 	public static ArrayList<ArrayList<String>> getCombinations(ArrayList<String> params) {
 		ArrayList<ArrayList<String>> combinations =new ArrayList<ArrayList<String>>();

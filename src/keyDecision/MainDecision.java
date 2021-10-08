@@ -14,6 +14,12 @@ public class MainDecision {
 	public GroupOfAllFiles allFiles;
 	public GroupOfAllFiles createdGroup;
 	
+	
+	/**
+	* main for the second part of the programm which is finding the global keys common to all files
+	* @return      void
+	*/
+	
 	public static void main(){
 		GroupOfAllFiles allFiles =new GroupOfAllFiles();
 		final File folder = new File("RESULTS");
@@ -21,6 +27,7 @@ public class MainDecision {
 		for(File aFile : listOfFiles) {
 			listFilesForFolder(aFile,allFiles);
 		}
+		System.out.println("ici");
 
 		ThreadExecutorSimpleBlockingQueue pool = new ThreadExecutorSimpleBlockingQueue();
 		
@@ -43,9 +50,11 @@ public class MainDecision {
         }
 		pool.threadpool.shutdown();
 		ThreadExecutorFinding newPool = new ThreadExecutorFinding();
+		System.out.println(allFiles.groupOfAllFiles.get(0).groupOfKeysFound.get(0).keys);
 		GroupOfKeysInOneFile firstS=group.groupOfAllFiles.get(0);
+		
 		for(KeysFound firstKeys: firstS.groupOfKeysFound) {
-			
+			System.out.println("par ici");
 			newPool.SubmitFindingTask(new TaskFinder(group, firstKeys, newPool ,0));
 		}
 		try {
@@ -65,7 +74,11 @@ public class MainDecision {
 		newPool.threadpool.shutdown();
 	}
 	
-	
+	/**
+	* List all files inside a folder
+	* @param  folder a folder
+	* @return listOfFiles all files into a folder
+	*/
 	public static ArrayList<File> listFilesForFolderFromResult(final File folder) {
 		ArrayList<File> listOfFiles= new ArrayList<File>();
 		for (final File fileEntry : folder.listFiles()) {
@@ -74,7 +87,15 @@ public class MainDecision {
 		return listOfFiles;
 	}
 	
-	public static void listFilesForFolder(final File folder, GroupOfAllFiles AllFiles) {
+	/**
+	* List all files inside a folder from results of the precedent programm and add it to the total off all keys from all folders
+	* @param  folder a folder
+	* @param allFiles the group of every keys from every files
+	* @return void
+	*/
+	
+	
+	public static void listFilesForFolder(final File folder, GroupOfAllFiles allFiles) {
 		GroupOfKeysInOneFile SecondFile= new GroupOfKeysInOneFile();
 	    for (final File fileEntry : folder.listFiles()) {
 	    	
@@ -98,8 +119,15 @@ public class MainDecision {
 	        }
 	       
 	    }
-	    AllFiles.groupOfAllFiles.add(new GroupOfKeysInOneFile(SecondFile));
+	    allFiles.groupOfAllFiles.add(new GroupOfKeysInOneFile(SecondFile));
 	}
+	
+	/**
+	* save all keys and unauthorizedKeys from a file in a KeysFound
+	* @param  file a file from which we will get out all keys saved
+	* @param  aFile KeysFound empty at the beginning
+	* @return listOfFiles all files into a folder
+	*/
 	
 	public void createKeysFound(File file, KeysFound aFile){
 	    	if (file.getName().contains("ents.txt")) {

@@ -6,11 +6,24 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 /**
- * @author Blot Elliott
+ * @author Sue Jarod from code from Blot Elliott
  *
  */
+
+/**
+* create the options for the programs from the line of command used
+*
+* @param  args arguments for the options
+* @param  reg  said to the programm if there is a use of a regex or not
+* @return      void
+*/
 public class FullOptions {
-	
+	/**
+	* set the options from the line of command used
+	* @param  args The line of command used
+	* @param  reg boolean to express a regex
+	* @return void
+	*/
 	public static void setOptions(String[] args, boolean reg) throws Exception {
 		final Options options = configParameters(reg);
 		
@@ -57,6 +70,13 @@ public class FullOptions {
 	    			);
 	    	System.exit(1);}
 	}
+	
+	/**
+	* configure the options for the programs from the line of command used
+	*
+	* @param  reg  said to the programm if there is a use of a regex or not
+	* @return      Options
+	*/
 	
 	private static Options configParameters(boolean reg) {
 		final Options options = new Options();

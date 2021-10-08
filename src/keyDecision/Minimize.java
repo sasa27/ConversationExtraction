@@ -8,6 +8,14 @@ import java.util.ArrayList;
 import objetsconversations.*;
 
 public class Minimize {
+	
+	/**
+	* Minimize the number of Conversation Key Set inside a file before adding it to the GroupOfAllFilesMinimized created the GroupOfKeysInOneFile minimized
+	* @param  file the file we're gonna minimized
+	* @param  group the group of all files already minimized
+	* @return void
+	*/
+	
 	public static void minimize(GroupOfKeysInOneFile file, GroupOfAllFilesMinimized group) {
 		ArrayList<KeysFound> allKeys = new ArrayList<KeysFound>(file.groupOfKeysFound);
 		Collections.sort(allKeys, KeysFound.ComparatorFirstString);

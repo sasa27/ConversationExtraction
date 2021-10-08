@@ -26,6 +26,7 @@ public class TaskFinder implements Runnable{
     
     @Override
     public void run() {
+    	System.out.println("par ici");
          keyDecision.KeyFinder.findingKeys(this.allFilesGroup,this.groupNow,this.pool, this.position,this.pool.result);
         
     }    

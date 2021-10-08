@@ -21,6 +21,8 @@ import java.util.HashSet;
 
 public class ResultsWriter {
 	
+	
+	
 	public static synchronized void write(ConversationSet ensemble, Trace trace, Save sauv) {
 		
 		

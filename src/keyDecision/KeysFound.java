@@ -5,6 +5,10 @@ import java.util.*;
 import objetsconversations.Conversation;
 import objetsconversations.Event;
 public class KeysFound {
+	
+	/**
+	* represent a class of keys found in one document
+	*/
 	public ArrayList<Set<String>> keys;
 	public Set<String> unauthorizedKeys;
 	public KeysFound() {
@@ -34,7 +38,12 @@ public class KeysFound {
 	
 	
 	public static Comparator<KeysFound> ComparatorFirstString = new Comparator<KeysFound>() {
-	      
+		/**
+		* Verify if one KeysFound is include in the other in order to minimize
+		* @param  e1  The keys from one file
+		* @param  e2  The keys from one file
+		* @return Comparator<KeysFound> 
+		*/  
         @Override
         public int compare(KeysFound e1, KeysFound e2) {
         	ArrayList<String> firstListToCompare=new ArrayList<>(e1.keys.get(0));

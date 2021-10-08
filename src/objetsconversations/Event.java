@@ -24,6 +24,23 @@ import com.google.common.collect.Sets;
  * @author Blot Elliott
  *
  */
+
+
+/**
+* Represent an event
+*
+* @param  ligne  all the event
+* @param  from  get from where the event came
+* @param  to  get where the event was going to
+* @param  session  get the parameters from the session
+* @param  label  get the label from the event
+* @param  separator  get the separator of the event
+* @param  params  represent all the parameters
+* @param  paramsSess  represent all the parameters useful in order to use the event
+* @param  date  represent the timestamp of the event
+*/
+
+
 public class Event {
 	public String ligne;
 	public static String from = "Host";
