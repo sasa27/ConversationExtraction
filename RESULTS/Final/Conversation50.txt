@@ -1,0 +1,2 @@
+Aug 17, 2019 14:27:28.635684000 CEST;Host=192.168.43.102;Dest=192.168.43.76;Protocol=HTTP;Verb=GET Uri=/json.htm?type=command&param=udevice&idx=1&nvalue=0&svalue=26.00;55.00;1&rssi=7 HTTP/1.1 ;;session=51
+Aug 17, 2019 14:27:28.653332000 CEST;Host=192.168.43.76;Dest=192.168.43.102;Protocol=HTTP;HTTP/1.1 status=200 response=OK  (type=application/json);;session=51

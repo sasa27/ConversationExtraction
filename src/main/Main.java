@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import keyDecision.MainDecision;
+import split.Trace;
 //import split.*;
 /**
  * 
@@ -20,27 +21,21 @@ public class Main {
 	static boolean timerMode;
 	public static String mode;
 	public static boolean premier;
-	
+	public static Trace trace;
 
-	public static void main(String[] args) {
-		System.out.println("la");
+	public static void main(String[] args, File file) {
 		boolean useRegex = Arrays.stream(args).anyMatch("-r"::equals);
-		System.out.println("pb1");
+
 		try {
 		    FullOptions.setOptions(args, useRegex);
 		} catch (Exception e) {
 		    System.err.println("pb option");
 		    System.exit(3);
 		}
-		
-		System.out.println("pb");
 		boolean firstResult = Arrays.stream(args).anyMatch("-f"::equals);
 		//Split the log and detect the sessions and  dependencies
 		int compteur= 1;
 		File folder = new File("FileCutted/");
-		for (File fileEntry : folder.listFiles()) {
-			System.out.println( fileEntry);
-		}
 		
 		for (File fileEntry : folder.listFiles()) {
 			File tmp = new File("RESULTS/"+output + compteur);
@@ -48,20 +43,19 @@ public class Main {
 				tmp.mkdir();
 			}
 			
-			System.out.println(tmp);
 			Save count=new Save(tmp);
 			if(useRegex){
 				String[] argsSplit = {"-r", regex, "-o", tmp.getName(), mode};
-				split.MainSplit.main(argsSplit, count, firstResult, useRegex,fileEntry);
+				trace=split.MainSplit.main(argsSplit, count, firstResult, useRegex,fileEntry);
 			}
 			else {
 				String[] argsSplit = {log, "-o",  tmp.getName(), mode};
-				split.MainSplit.main(argsSplit, count, firstResult, useRegex,fileEntry);
+				trace=split.MainSplit.main(argsSplit, count, firstResult, useRegex,fileEntry);
 			}
 			final long timebuildingTraces1 = System.currentTimeMillis();
 			compteur++;
 		}
-		MainDecision.main();
+		MainDecision.main(trace);
 		
 		
 		

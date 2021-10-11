@@ -1,13 +1,15 @@
 package keyDecision;
 import java.io.File;
 import java.util.ArrayList;
-
+import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 
+import lastExtraction.ExtractionWithKeys;
 import main.ResultsWriter;
 import main.SavingResults;
 import parralelisation.*;
+import split.Trace;
 import objetsconversations.*;
 
 public class MainDecision {
@@ -20,14 +22,13 @@ public class MainDecision {
 	* @return      void
 	*/
 	
-	public static void main(){
+	public static void main(Trace trace){
 		GroupOfAllFiles allFiles =new GroupOfAllFiles();
 		final File folder = new File("RESULTS");
 		ArrayList<File> listOfFiles = listFilesForFolderFromResult(folder);
 		for(File aFile : listOfFiles) {
 			listFilesForFolder(aFile,allFiles);
 		}
-		System.out.println("ici");
 
 		ThreadExecutorSimpleBlockingQueue pool = new ThreadExecutorSimpleBlockingQueue();
 		
@@ -50,7 +51,6 @@ public class MainDecision {
         }
 		pool.threadpool.shutdown();
 		ThreadExecutorFinding newPool = new ThreadExecutorFinding();
-		System.out.println(allFiles.groupOfAllFiles.get(0).groupOfKeysFound.get(0).keys);
 		GroupOfKeysInOneFile firstS=group.groupOfAllFiles.get(0);
 		
 		for(KeysFound firstKeys: firstS.groupOfKeysFound) {
@@ -69,9 +69,14 @@ public class MainDecision {
         		System.err.println("erreur sleep");
         	}
         }
-		
+		HashSet<HashSet<Set<String>>> allKeysPossible =new HashSet<HashSet<Set<String>>>(newPool.result);
 		ResultsWriter.writeAllPossibleKeys(newPool.result);
 		newPool.threadpool.shutdown();
+		System.out.println(allKeysPossible.size());
+		for (HashSet<Set<String>> separateKeys : allKeysPossible) {
+			System.out.println("Apres shut");
+			ExtractionWithKeys.extractionWithAllPossibleKeys(trace, separateKeys);
+		}
 	}
 	
 	/**

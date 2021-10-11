@@ -27,7 +27,6 @@ public class FindConversation {
 	
 	//méthode de test
 	public static void find(ConversationSet currentConversationSet, int line , boolean end, Trace trace, ThreadExecutor threadpool, Regex regex,Save sauv){
-		System.out.println(line);
 		
 		if(line!=trace.getSize()) {
 			Event currentEvent=trace.getEvent(line);

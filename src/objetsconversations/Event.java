@@ -107,15 +107,15 @@ public class Event {
 	/**
 	 * Return the parameters of the event, without session identifier.
 	 */
-	public ArrayList<String> getparams() {
+	public ArrayList<String> getParamsWithoutFromTo() {
 		return paramsSess;
 	}
 	
 	/**
 	 * Return all the parameters.
 	 */
-	public ArrayList<String> getparamsSess() {
-		return paramsSess;
+	public ArrayList<String> getparamsWithFromTo() {
+		return params;
 	}
 	
 	/**
@@ -197,8 +197,8 @@ public class Event {
 	 * Check if ai has common parameters with this.
 	 */
 	public boolean dataSimilarity(Event ai) {
-		ArrayList<String> paramsi = ai.getparamsSess();
-		ArrayList<String> paramsj = this.getparamsSess();
+		ArrayList<String> paramsi = ai.getparamsWithFromTo();
+		ArrayList<String> paramsj = this.getparamsWithFromTo();
 		for (String parami: paramsi) {
 			if (!(parami.contains(from) || parami.contains(to))) {
 				for (String paramj: paramsj) {

@@ -20,8 +20,13 @@ import java.util.Collections;
 import java.util.HashSet;
 
 public class ResultsWriter {
-	
-	
+	/**
+	* write the results of the first part of the programm
+	* @param  ensemble  the ConversationSet which will be saved
+	* @param  trace the trace
+	* @param  sauv  path which will be used for the save
+	* @return void
+	*/
 	
 	public static synchronized void write(ConversationSet ensemble, Trace trace, Save sauv) {
 		
@@ -88,11 +93,18 @@ public class ResultsWriter {
 			    }
 		
 	    }
+	
+	/**
+	* Write the result of the second of the programm
+	* @param  allPossibleKeys all combination of keys which can be used as a global set of keys
+	* @return void
+	*/
 public static synchronized void writeAllPossibleKeys(HashSet<HashSet<Set<String>>> allPossibleKeys) {
 	File dir = new File("RESULTS/allPossibleKeys.txt");
 	 String writingInFile = "";
 	 writingInFile= writingInFile  +"All Possible Keys From The File : \n \n";
 	 for (HashSet<Set<String>> firstLayer : allPossibleKeys) {
+		 System.out.println(firstLayer);
 		 writingInFile= writingInFile  + firstLayer.toString() + " \n";
 	 }
 

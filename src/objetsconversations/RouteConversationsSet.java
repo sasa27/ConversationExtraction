@@ -21,10 +21,10 @@ public class RouteConversationsSet {
 
 		
 		ArrayList<String> conv = new ArrayList<String>();
-		for (String ev :conversat.getLastEvent().getparams()) {
+		for (String ev :conversat.getLastEvent().getParamsWithoutFromTo()) {
 			conv.add(ev);
 		}
-		ArrayList<String> event =currentEvent.getparams();
+		ArrayList<String> event =currentEvent.getParamsWithoutFromTo();
 
 		conv.retainAll(event);
 

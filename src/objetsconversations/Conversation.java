@@ -2,7 +2,15 @@ package objetsconversations;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
+/**
+* represent a conversation
+* @param  conv  save the conversation
+* @param  choosedKeys  save the choosed keys for the conversation
+* @param  assignments  save the assignments used for all keys
+* @param  cle  save the last used keys
+* @param  nbrequest  number of requests in the conversation
+* @param  nbreponse  number of responses in the conversation
+*/
 
 
 public class Conversation{
@@ -68,7 +76,7 @@ public class Conversation{
     	  choosedKeys.add(choisi);
       }
       
-      for(String param : reqorrep.getparams()) {
+      for(String param : reqorrep.getParamsWithoutFromTo()) {
     	  if (!assignments.contains(param)) {
     		  assignments.add(param);
     	  }
@@ -96,7 +104,7 @@ public class Conversation{
   public Conversation(Event event){
     conv= new ArrayList<Event>();
     assignments =  new ArrayList<String>();
-    for(String param : event.getparams()) {
+    for(String param : event.getParamsWithoutFromTo()) {
   	  if (!assignments.contains(param)) {
   		  assignments.add(param);
   	  }

@@ -6,7 +6,14 @@ import java.util.*;
 
 import metrique.Metric;
 
-public class ConversationSet implements Cloneable {
+/**
+* Represent a ConversationSet
+*
+* @param  ConvSet  list of conversation
+*/
+
+
+public class ConversationSet{
 	public ArrayList<Conversation> ConvSet;
 
 	public ConversationSet() {

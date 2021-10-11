@@ -19,6 +19,13 @@ public class MainFileCutting {
 	
 
 
+	/**
+	* use the options to destroy previous cutted file in order to create new ones when reused before launching the class to cut a file and finally launch the Main programm
+	*
+	* @param  Options  line usedd in console command cut foreach option inside
+	* @return      void
+	*/
+	
 	public static void main(String[] Options) {
 		File fileToWrite=new File(Options[0]);
 		File f = new File("RESULTS");
@@ -36,6 +43,9 @@ public class MainFileCutting {
 				outp.delete();
 			}
         }
+        else {
+        	f.mkdir();
+        }
         File directoryOutput=new File("FileCutted");
         
 		if ((!directoryOutput.exists()) || (!directoryOutput.isDirectory())){
@@ -48,6 +58,6 @@ public class MainFileCutting {
 		}
         
 		CutAFileInFilesOfLengthThatYouWant.cutAFile(fileToWrite, Options[1],Options[2]);
-		Main.main(Options);
+		Main.main(Options, fileToWrite);
 	}
 }

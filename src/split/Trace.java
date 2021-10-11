@@ -66,16 +66,18 @@ public class Trace {
 	}
 	
 	public Trace(File file) {
-		
+		System.out.println(file.getAbsolutePath());
 		seq = new ArrayList<Event>();
 		try {
 			
 			BufferedReader br = new BufferedReader (new FileReader(file));
 			String line = br.readLine();
 			while (line!=null) {
+				System.out.println("au log");
 				seq.add(new Event(line));
 				line = br.readLine();
 			}
+			
 			br.close();
 		} catch (FileNotFoundException e) {
 			System.err.println("File "+ file + " not found");
@@ -84,6 +86,7 @@ public class Trace {
 			System.err.println("IOException");
 			e.printStackTrace();
 		}
+		
 	}
 			
 	
@@ -220,8 +223,8 @@ public class Trace {
 	public Event lastReq(String comp) {
 		for (int i = seq.size()-1; i >= 0; i--) {
 			Event e = seq.get(i);
-			if (e.isReq() && (e.getparams().contains(Event.from + "=" + comp) ||
-					e.getparams().contains(Event.to + "=" + comp))){
+			if (e.isReq() && (e.getParamsWithoutFromTo().contains(Event.from + "=" + comp) ||
+					e.getParamsWithoutFromTo().contains(Event.to + "=" + comp))){
 				return e;
 			}
 		}

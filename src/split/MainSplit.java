@@ -32,13 +32,14 @@ public class MainSplit {
 	public static Regex regex;
 	public static Trace logOrigin;
 	public static Metric metrique;
+	public static Trace trace;
 	public static double interval = 5000.0;//in milliseconds 
 	//public static double fact = 10.0;
 
 	/** 
 	public static Dependency Dep;
 	*/
-	public static void main(String[] args, Save sauv, boolean premier, boolean reg, File log) {
+	public static Trace main(String[] args, Save sauv, boolean premier, boolean reg, File log) {
 		//parse the log
 		final long timebuildingTraces1 = System.currentTimeMillis();
 		means = new HashMap<String, Double>();
@@ -60,12 +61,12 @@ public class MainSplit {
 
         ThreadExecutor threadpool= new ThreadExecutor();
         if(reg) {
-			Trace trace = new Trace(log,regex);
+			trace = new Trace(log,regex);
 			Task tache=new Task(ensemble,0,premier,trace, threadpool,regex, sauv);
 			threadpool.SubmitTask(tache);
 		}
 		else {
-			Trace trace = new Trace(log);
+			trace = new Trace(log);
 			Task tache=new Task(ensemble,0,premier,trace, threadpool,new Regex(), sauv);
 			threadpool.SubmitTask(tache);
 		}
@@ -88,7 +89,7 @@ public class MainSplit {
         threadpool.threadpool.shutdown();
         System.out.println(threadpool.threadpool);
         System.out.println(threadpool.numberThread);
-        System.out.println(TimeTask2-TimeTask1);
+        return trace;
         
         
 	}
