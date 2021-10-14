@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 public class GroupOfKeysInOneFile {
 	public ArrayList<KeysFound> groupOfKeysFound;
+	/**
+	* Represent a group of every keys found in one of the files
+	*/
 	public GroupOfKeysInOneFile() {
 		groupOfKeysFound=new ArrayList<KeysFound>();
 		

@@ -15,4 +15,5 @@ public class SimpleThreadPool extends ThreadPoolExecutor{
     protected <T> RunnableFuture<T> newTaskFor(Runnable runnable, T value) {
         return new MyFutureTaskMinimize<>((TaskMinimizing)runnable);
     }
+
 }

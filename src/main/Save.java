@@ -1,12 +1,10 @@
 package main;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.*;
-import objetsconversations.ConversationSet;
+/**
+* Save the path to the folder which will be used to save the results
+* @param  number number used to separate folders and files of results
+* @param  file  path of the folder
+*/
 public class Save {
 	public int number;
 	public File file;

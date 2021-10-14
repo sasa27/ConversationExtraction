@@ -5,6 +5,13 @@ import java.util.*;
 
 import objetsconversations.ConversationSet;
 
+/**
+* Write everything in binary in order to save the lkeys and unauthorizedKeys from the first part of the programm
+* @param  args The line of command used
+* @param  reg boolean to express a regex
+* @return void
+*/
+
 public class SavingResults {
 	public static void writeArrayListInFile(ArrayList<Set<ArrayList<String>>> menuArray, File dir){
 		try {

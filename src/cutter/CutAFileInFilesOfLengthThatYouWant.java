@@ -50,6 +50,7 @@ public class CutAFileInFilesOfLengthThatYouWant {
 				}
 				fw.close();
 			}
+			br.close();
 		}
 		 catch (IOException ea) {
 			System.err.println("IOException");

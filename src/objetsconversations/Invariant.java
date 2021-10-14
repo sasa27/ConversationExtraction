@@ -1,28 +1,37 @@
 package objetsconversations;
 import java.util.*;
+/**
+* Contain every invariant used
+*/
 public class Invariant {
-	//public static boolean invariant(ConversationSet ensemble, Event evenement) {
-		/*
-		for (String parametre : evenement.getparams) {
-			if (!ensemble.UnauthorizedKeys.contains(params)) {
-				return true;
-			}
-		}
-		return false;
-		*/
-		//return true;
-	//}
 
+	/**
+	* return if the list is empty or not
+	*
+	* @param  liste  represent the list which is gonna be looked on
+	* @return    boolean
+	*/
 	public static boolean invariantintersect(ArrayList<ArrayList<String>> liste) {
 			return liste.size()!=0;
 	}
 	
-
+	/**
+	* Return if the Event is a request or not
+	*
+	* @param  event Event verified
+	* @return   boolean
+	*/
 	public static boolean invariantRequest(Event event) {
 		return event.isReq();
 	}
 	
-
+	/**
+	* Return if the last event is an event directed to the first event of the conversation
+	*
+	* @param  event Event verified
+	* @param  conver Conversation from which the Events are gonna be verified
+	* @return   boolean
+	*/
 	
 	public static boolean invariantFromTo(Event event, Conversation conver) {
 		
@@ -38,7 +47,12 @@ public class Invariant {
 	
 
 
-
+	/**
+	* Return if there is assigments which 
+	*
+	* @param  event Event verified
+	* @return   boolean
+	*/
 
 	public static boolean Invariant2(ConversationSet ensemble, Conversation conv) {
 		Set<String> setOfParameters= new LinkedHashSet<>();
