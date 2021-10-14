@@ -12,18 +12,28 @@ import objetsconversations.Conversation;
 import objetsconversations.Event;
 
 public class WritingAllConversations {
-	public static void writeLastReturn(FinalConversationSetReturn ConversationSet) {
+	public static synchronized void writeLastReturn(FinalConversationSetReturn ConversationSet,int numberConversationSet) {
+		File directoryFile=new File("RESULTS"+"/Final");
+		if ((!directoryFile.exists()) || (!directoryFile.isDirectory())){
+			directoryFile.mkdir();
+		}
+		File dir = new File("RESULTS"+"/Final/ConversationSet"+numberConversationSet+".txt");
+		String writingInFile = "";
 		for(int i=0;i<ConversationSet.getSize();i++) {
-			File directoryFile=new File("RESULTS"+"/Final");
-			if ((!directoryFile.exists()) || (!directoryFile.isDirectory())){
-				directoryFile.mkdir();
-			}
-			File dir = new File("RESULTS"+"/Final/Conversation"+i+".txt");
-			String writingInFile = "";
+			
 			FinalConversationReturn thisConv = ConversationSet.getConvSet().get(i);
+			int j=0;
 			for (Event event : thisConv.getConv()) {
-				writingInFile+=event.getligne() + "\n";
+				writingInFile+="e"+j+"(";
+				for (String param : event.getParamsWithoutFromTo()) {
+					writingInFile+=param+", ";
+				}
+				writingInFile = writingInFile.substring(0, writingInFile.length() - 2);
+				writingInFile+="); ";
+				j++;
 			}
+			writingInFile = writingInFile+"\n";
+		}
 			try {
 				FileWriter fw = new FileWriter(dir.getAbsoluteFile());
 				BufferedWriter bw = new BufferedWriter(fw);
@@ -34,7 +44,7 @@ public class WritingAllConversations {
 			catch(Exception e) {
 				System.err.println(e);
 			}
-		}
+		
 	
     }
 	

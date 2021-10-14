@@ -1,4 +1,4 @@
 All Possible Keys From The File : 
  
-[[session], [group]] 
-[[session], [session, group]] 
+[[session], [switchcmd]] 
+[[switchcmd, session], [session], [switchcmd]] 

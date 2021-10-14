@@ -14,29 +14,36 @@ public class KeyFinder {
 	* @return      void
 	*/
 	public static synchronized void findingKeys(GroupOfAllFilesMinimized allFilesGroup, KeysFound group , ThreadExecutorFinding pool, int position, Set<HashSet<Set<String>>> result) {
-		if(!(position+1==allFilesGroup.groupOfAllFiles.size())) {
-			GroupOfKeysInOneFile allInOneFile=allFilesGroup.groupOfAllFiles.get(position);
-			GroupOfKeysInOneFile newGroupWhenKeysInCommon=new GroupOfKeysInOneFile();
-			for(KeysFound keysToWorkWith: allInOneFile.groupOfKeysFound) {
-				if (!Collections.disjoint(keysToWorkWith.keys, group.keys)) {
-					newGroupWhenKeysInCommon.groupOfKeysFound.add(new KeysFound(keysToWorkWith));
-				}
-			}
-			if (!newGroupWhenKeysInCommon.groupOfKeysFound.isEmpty()) {
-				allInOneFile=newGroupWhenKeysInCommon;
-			}
-			for(KeysFound keysToWorkWith: allInOneFile.groupOfKeysFound){
-				if(VerificationUnauthorizedKeys.VerificationUnauthorizedKeysProcedure(group,keysToWorkWith)){
-					TaskFinder task = new TaskFinder(allFilesGroup, new KeysFound (group, keysToWorkWith),pool, position+1);
-					pool.SubmitFindingTask(task);
-				}
-				
-			}
-		}
 		
-		else {
+			if(!(position+1==allFilesGroup.groupOfAllFiles.size())) {
+				GroupOfKeysInOneFile allInOneFile=allFilesGroup.groupOfAllFiles.get(position);
+				GroupOfKeysInOneFile newGroupWhenKeysInCommon=new GroupOfKeysInOneFile();
+				
+				for(KeysFound keysToWorkWith: allInOneFile.groupOfKeysFound) {
+					System.out.println("les unauthorized");
+					System.out.println(keysToWorkWith.unauthorizedKeys);
+					System.out.println(group.unauthorizedKeys);
+					if (!Collections.disjoint(keysToWorkWith.keys, group.keys)) {
+						newGroupWhenKeysInCommon.groupOfKeysFound.add(new KeysFound(keysToWorkWith));
+					}
+				}
+				if (!newGroupWhenKeysInCommon.groupOfKeysFound.isEmpty()) {
+					allInOneFile=newGroupWhenKeysInCommon;
+				}
+				for(KeysFound keysToWorkWith: allInOneFile.groupOfKeysFound){
+					if(VerificationUnauthorizedKeys.VerificationUnauthorizedKeysProcedure(group,keysToWorkWith)){
+						TaskFinder task = new TaskFinder(allFilesGroup, new KeysFound (group, keysToWorkWith),pool, position+1);
+						pool.SubmitFindingTask(task);
+					}
+					
+				}
+			}
 			
-			result.add(new HashSet<Set<String>>(group.keys));
+			else {
+				
+				result.add(new HashSet<Set<String>>(group.keys));
+			}
 		}
+
 	}
-}
+

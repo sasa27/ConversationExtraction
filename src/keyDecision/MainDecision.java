@@ -32,7 +32,7 @@ public class MainDecision {
 
 		ThreadExecutorSimpleBlockingQueue pool = new ThreadExecutorSimpleBlockingQueue();
 		
-		
+		System.out.println(allFiles.groupOfAllFiles);
 		GroupOfAllFilesMinimized group = new GroupOfAllFilesMinimized();
 		for (GroupOfKeysInOneFile file : allFiles.groupOfAllFiles) {
 			pool.SubmitMinimizingTask(new TaskMinimizing(file, group));
@@ -49,10 +49,12 @@ public class MainDecision {
         		System.err.println("erreur sleep");
         	}
         }
+		
 		pool.threadpool.shutdown();
 		ThreadExecutorFinding newPool = new ThreadExecutorFinding();
 		GroupOfKeysInOneFile firstS=group.groupOfAllFiles.get(0);
-		
+		System.out.println("icila");
+		System.out.println(firstS.groupOfKeysFound);
 		for(KeysFound firstKeys: firstS.groupOfKeysFound) {
 			System.out.println("par ici");
 			newPool.SubmitFindingTask(new TaskFinder(group, firstKeys, newPool ,0));
@@ -73,9 +75,11 @@ public class MainDecision {
 		ResultsWriter.writeAllPossibleKeys(newPool.result);
 		newPool.threadpool.shutdown();
 		System.out.println(allKeysPossible.size());
+		int numberConversationSet=0;
 		for (HashSet<Set<String>> separateKeys : allKeysPossible) {
 			System.out.println("Apres shut");
-			ExtractionWithKeys.extractionWithAllPossibleKeys(trace, separateKeys);
+			ExtractionWithKeys.extractionWithAllPossibleKeys(trace, separateKeys,numberConversationSet);
+			numberConversationSet++;
 		}
 	}
 	
@@ -101,11 +105,14 @@ public class MainDecision {
 	
 	
 	public static void listFilesForFolder(final File folder, GroupOfAllFiles allFiles) {
+		System.out.println(folder);
 		GroupOfKeysInOneFile SecondFile= new GroupOfKeysInOneFile();
 	    for (final File fileEntry : folder.listFiles()) {
+	    	System.out.println(fileEntry);
 	    	
 	        if ((fileEntry.isDirectory()) &&(!fileEntry.getName().contains("result"))) {
 	        	for(File outp : fileEntry.listFiles()) {
+	        		
 	        		File[] listOfFiles2 = outp.listFiles();
 	        		KeysFound aSecondFile = new KeysFound();
 	        		for (File file : listOfFiles2) {
@@ -122,9 +129,10 @@ public class MainDecision {
 	        	}
 	        
 	        }
-	       
 	    }
-	    allFiles.groupOfAllFiles.add(new GroupOfKeysInOneFile(SecondFile));
+	    if(SecondFile.groupOfKeysFound.size()>0) {
+	    	allFiles.groupOfAllFiles.add(new GroupOfKeysInOneFile(SecondFile));
+	    }
 	}
 	
 	/**

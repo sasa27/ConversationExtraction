@@ -10,9 +10,9 @@ import split.Regex;
 import split.Trace;
 
 public class ExtractionWithKeys {
-	public static void extractionWithAllPossibleKeys(Trace trace1, HashSet<Set<String>> keySet) {
-		File log = new File("examples/ex1id/case1");
-		Regex regex = new Regex("examples/ex1id/regexcaseid");
+	public static void extractionWithAllPossibleKeys(Trace trace1, HashSet<Set<String>> keySet, int numberConversationSet) {
+		File log = new File("examples/ex6id/case6");
+		Regex regex = new Regex("examples/ex6id/regexcaseid");
 		Trace trace=new Trace(log, regex);
 		FinalConversationSetReturn convSetFinal= new FinalConversationSetReturn();
 		System.out.println(trace.getSize());
@@ -64,7 +64,7 @@ public class ExtractionWithKeys {
 			
 		}
 		System.out.println("auwrite");
-		WritingAllConversations.writeLastReturn(convSetFinal);
+		WritingAllConversations.writeLastReturn(convSetFinal,numberConversationSet);
 	}
 }
 

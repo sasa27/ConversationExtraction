@@ -1,2 +1,0 @@
-Aug 17, 2019 14:36:04.867324000 CEST;Host=192.168.43.124;Dest=192.168.43.76;Protocol=HTTP;Verb=GET Uri=/json.htm?type=command&param=switchlight&idx=11&switchcmd=On&rssi=4 HTTP/1.1 ;;session=272
-Aug 17, 2019 14:36:04.902104000 CEST;Host=192.168.43.76;Dest=192.168.43.124;Protocol=HTTP;HTTP/1.1 status=200 response=OK  (type=application/json);;session=272
